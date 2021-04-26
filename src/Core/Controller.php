@@ -2,8 +2,25 @@
 
 namespace Core;
 
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+
 class Controller
 {
-    //init twig render, redirect
-    //flash message
+    //Twig - Render Method
+    public function render(string $path, $datas = []){
+        $loader = new FilesystemLoader('../src/Views/');
+        
+        $twig = new Environment($loader, [
+            'cache' => 'false',
+        ]);
+
+        echo $twig->render($path.'.html.twig' , $datas);
+    }
+
+    //Flash
+
+    //RedirectTo
+
+
 }

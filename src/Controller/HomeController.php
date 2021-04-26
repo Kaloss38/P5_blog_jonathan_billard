@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-class HomeController{
+use Core\Controller;
+
+class HomeController extends Controller{
 
     public function __construct(){
 
@@ -10,6 +12,6 @@ class HomeController{
 
     public function home()
     {
-        return "La page index appelée depuis une methode d'un controller";
+        return $this->render('public/home', []);
     }
 }
