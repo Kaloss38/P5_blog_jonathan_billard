@@ -8,6 +8,7 @@ define("CONF_DIR", realpath(dirname(__DIR__)) . "/config" );
 
 define("VIEW_DIR", realpath(dirname(__DIR__)) . "/src/Views" );
 
+define("ROOT_DIR", dirname(__DIR__));
 
 
 
