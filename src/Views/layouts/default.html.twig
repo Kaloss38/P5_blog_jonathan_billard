@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {# {% include 'style&script/style.html.twig' %} #}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+
+
+        {% block javascripts %}
+        {# {% include 'style&script/script.html.twig' %} #}
+        {% endblock %}
+    </body>
+</html>
