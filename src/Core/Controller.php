@@ -20,9 +20,30 @@ class Controller
         echo $twig->render($path.'.html.twig' , $datas);
     }
 
-    //Flash
+    //addFlash
 
     //RedirectTo
+    public function redirectTo(string $path){
+        header("Location:" . $path);
+        exit();
+    }
 
+    public function isSubmit(string $submit){
+        if(isset($_POST[$submit])){
+            return true;
+        }
 
+        return false;
+    }
+
+    public function isValidated(array $fields){
+        $isValide = true;
+        foreach($fields as $value){
+            if($value == null || !isset($value) || $value == ""){
+                $isValide = false;
+            }
+        }
+
+        return $isValide;
+    }
 }

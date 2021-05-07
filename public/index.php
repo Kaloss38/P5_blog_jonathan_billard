@@ -11,8 +11,6 @@ define("VIEW_DIR", realpath(dirname(__DIR__)) . "/src/Views" );
 define("ROOT_DIR", dirname(__DIR__));
 
 
-
-
 // Start the routing
 \Core\Router::start();
 
