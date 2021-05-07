@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Controller\UserController;
+use Core\Controller;
 
-class AdminController extends UserController{
+class AdminController extends Controller{
 
     public function __construct(){
 
