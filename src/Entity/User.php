@@ -25,10 +25,6 @@ class User{
         return $this->id;
     }
 
-    public function setId($id){
-        return $this->id = $id;
-    }
-
     /*
     *
     * PSEUDO

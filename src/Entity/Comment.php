@@ -1,12 +1,10 @@
 <?php
 
 class Comment{
-    private $id;
-    private $postId;
-    private $userId;
-    private $content;
-    private $creationDate;
-    private $validated;
+    private ?int $id;
+    private string $content;
+    private \Datetime $creationDate;
+    private bool $isValidated;
 
     public function __construct(){
 
@@ -18,40 +16,9 @@ class Comment{
     *
     */
 
-    public function getId(){
+    public function getId(): ?int
+    {
         return $this->id;
-    }
-
-    public function setId($id){
-        return $this->id = $id;
-    }
-
-    /*
-    *
-    * POST ID
-    *
-    */
-
-    public function getPostId(){
-        return $this->postId;
-    }
-
-    public function setPostId($postId){
-        return $this->postId = $postId;
-    }
-
-    /*
-    *
-    * USER ID
-    *
-    */
-
-    public function getUserId(){
-        return $this->userId;
-    }
-
-    public function setUserId($userId){
-        return $this->userId = $userId;
     }
 
     /*
@@ -60,12 +27,14 @@ class Comment{
     *
     */
 
-    public function getContent(){
+    public function getContent(): string
+    {
         return $this->content;
     }
 
-    public function setContent($content){
-        return $this->content = $content;
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
     }
 
     /*
@@ -74,12 +43,14 @@ class Comment{
     *
     */
 
-    public function getCreationDate(){
+    public function getCreationDate(): \DateTime
+    {
         return $this->creationDate;
     }
 
-    public function setCreationDate($creationDate){
-        return $this->creationDate = $creationDate;
+    public function setCreationDate(\DateTime $creationDate)
+    {
+        $this->creationDate = $creationDate;
     }
     
     /*
@@ -88,12 +59,14 @@ class Comment{
     *
     */
 
-    public function getValidated(){
-        return $this->validated;
+    public function getIsValidated(): bool
+    {
+        return $this->isValidated;
     }
 
-    public function setValidated($validated){
-        return $this->validated = $validated;
+    public function setIsValidated($isValidated): void
+    {
+        $this->isValidated = $isValidated;
     }
 
 }

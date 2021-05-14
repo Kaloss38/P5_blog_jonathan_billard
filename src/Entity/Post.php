@@ -2,7 +2,6 @@
 
 class Post{
     private $id;
-    private $userId;
     private $title;
     private $header;
     private $content;
@@ -22,24 +21,6 @@ class Post{
 
     public function getId(){
         return $this->id;
-    }
-
-    public function setId($id){
-        return $this->id = $id;
-    }
-
-    /*
-    *
-    * USER ID
-    *
-    */
-
-    public function getUserId(){
-        return $this->userId;
-    }
-
-    public function setUserId($userId){
-        return $this->userId = $userId;
     }
 
     /*
