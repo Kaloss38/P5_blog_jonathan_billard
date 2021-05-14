@@ -84,7 +84,7 @@
 				}
 			}
 			
-			$req->execute($boudParam);
+			$req->execute($boundParam);
 		}
 		
 		public function delete($obj)
