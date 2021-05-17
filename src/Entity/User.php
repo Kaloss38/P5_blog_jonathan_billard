@@ -1,19 +1,25 @@
 <?php
 
-class User{
-    private $id;
-    private $pseudo;
-    private $firstname;
-    private $lastname;
-    private $email;
-    private $isActive;
-    private $isAdmin;
-    private $password;
-    private $token;
+use Core\Entity;
 
-    public function __construct(){
+class User extends Entity{
+    private ?int $id;
+    private string $pseudo;
+    private string $firstname;
+    private string $lastname;
+    private string $email;
+    private bool $isActive;
+    private bool $isAdmin;
+    private string $password;
+    private string $token;
 
+    public function __construct(array $data = []){
+        if(!empty($data)){
+            $this->hydrate($data);
+        }
     }
+
+    /* GETTERS / SETTERS */
 
     /*
     *
@@ -21,7 +27,8 @@ class User{
     *
     */
 
-    public function getId(){
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
@@ -31,12 +38,14 @@ class User{
     *
     */
 
-    public function getPseudo(){
+    public function getPseudo(): string
+    {
         return $this->pseudo;
     }
 
-    public function setPseudo($pseudo){
-        return $this->pseudo = $pseudo;
+    public function setPseudo(string $pseudo): void
+    {
+        $this->pseudo = $pseudo;
     }
 
     /*
@@ -45,12 +54,14 @@ class User{
     *
     */
 
-    public function getFirstname(){
+    public function getFirstname(): string
+    {
         return $this->firstname;
     }
 
-    public function setFirstname($firstname){
-        return $this->firstname = $firstname;
+    public function setFirstname(string $firstname): void
+    {
+        $this->firstname = $firstname;
     }
 
     /*
@@ -59,12 +70,14 @@ class User{
     *
     */
 
-    public function getLastname(){
+    public function getLastname(): string
+    {
         return $this->lastname;
     }
 
-    public function setLastname($lastname){
-        return $this->lastname = $lastname;
+    public function setLastname(string $lastname): void
+    {
+        $this->lastname = $lastname;
     }
 
     /*
@@ -73,12 +86,14 @@ class User{
     *
     */
 
-    public function getEmail(){
+    public function getEmail(): string
+    {
         return $this->email;
     }
 
-    public function setEmail($email){
-        return $this->email = $email;
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
     }
 
     /*
@@ -87,12 +102,14 @@ class User{
     *
     */
 
-    public function getIsActive(){
+    public function getIsActive(): bool
+    {
         return $this->isActive;
     }
 
-    public function setIsActive($isActive){
-        return $this->isActive = $isActive;
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 
     /*
@@ -101,12 +118,14 @@ class User{
     *
     */
 
-    public function getIsAdmin(){
+    public function getIsAdmin(): bool
+    {
         return $this->isAdmin;
     }
 
-    public function setIsAdmin($isAdmin){
-        return $this->isAdmin = $isAdmin;
+    public function setIsAdmin(bool $isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
     }
 
     /*
@@ -115,12 +134,14 @@ class User{
     *
     */
 
-    public function getPassword(){
+    public function getPassword(): string
+    {
         return $this->password;
     }
 
-    public function setPassword($password){
-        return $this->password = $password;
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
 
     /*
@@ -129,13 +150,13 @@ class User{
     *
     */
 
-    public function getToken(){
+    public function getToken(): string
+    {
         return $this->token;
     }
 
-    public function setToken($token){
-        return $this->token = $token;
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
     }
-
-
 }

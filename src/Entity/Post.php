@@ -1,17 +1,23 @@
 <?php
 
-class Post{
-    private $id;
-    private $title;
-    private $header;
-    private $content;
-    private $creationDate;
-    private $modificationDate;
-    private $thumbnail;
+use Core\Entity;
 
-    public function __construct(){
+class Post extends Entity{
+    private ?int $id;
+    private string $title;
+    private string $header;
+    private string $content;
+    private \DateTime $creationDate;
+    private \DateTime $modificationDate;
+    private string $thumbnail;
 
+    public function __construct(array $data = []){
+        if(!empty($data)){
+            $this->hydrate($data);
+        }
     }
+
+    /* GETTERS / SETTERS */
 
     /*
     *
@@ -19,7 +25,8 @@ class Post{
     *
     */
 
-    public function getId(){
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
@@ -29,12 +36,14 @@ class Post{
     *
     */
 
-    public function getTitle(){
+    public function getTitle(): string
+    {
         return $this->title;
     }
 
-    public function setTitle($title){
-        return $this->title = $title;
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
     }
 
     /*
@@ -43,12 +52,14 @@ class Post{
     *
     */
 
-    public function getHeader(){
+    public function getHeader(): string
+    {
         return $this->header;
     }
 
-    public function setHeader($header){
-        return $this->header = $header;
+    public function setHeader(string $header): void
+    {
+        $this->header = $header;
     }
 
     /*
@@ -57,12 +68,14 @@ class Post{
     *
     */
 
-    public function getContent(){
+    public function getContent(): string
+    {
         return $this->content;
     }
 
-    public function setContent($content){
-        return $this->content = $content;
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
     }
 
     /*
@@ -71,12 +84,14 @@ class Post{
     *
     */
 
-    public function getCreationDate(){
+    public function getCreationDate(): \DateTime
+    {
         return $this->creationDate;
     }
 
-    public function setCreationDate($creationDate){
-        return $this->creationDate = $creationDate;
+    public function setCreationDate(\DateTime $creationDate): void
+    {
+        $this->creationDate = $creationDate;
     }
 
     /*
@@ -85,12 +100,14 @@ class Post{
     *
     */
 
-    public function getModificationDate(){
+    public function getModificationDate(): \DateTime
+    {
         return $this->modificationDate;
     }
 
-    public function setModificationDate($modificationDate){
-        return $this->modificationDate = $modificationDate;
+    public function setModificationDate(\DateTime $modificationDate): void
+    {
+        $this->modificationDate = $modificationDate;
     }
 
     /*
@@ -99,12 +116,14 @@ class Post{
     *
     */
 
-    public function getThumbnail(){
+    public function getThumbnail(): string
+    {
         return $this->thumbnail;
     }
 
-    public function setThumbnail($thumbnail){
-        return $this->thumbnail = $thumbnail;
+    public function setThumbnail(string $thumbnail): void
+    {
+        $this->thumbnail = $thumbnail;
     }
 
 }
