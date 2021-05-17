@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use Core\Controller;
+use App\Manager\PostManager;
 
 class AdminController extends Controller{
 
-    public function __construct(){
-
-    }
-
     public function index()
     {
-        return $this->render('admin/homeAdmin', []);
+        $postManager = new PostManager();
+        $posts = $postManager->getAll();
+
+        return $this->render('admin/homeAdmin', [
+            'posts' => $posts
+        ]);
     }
 }
