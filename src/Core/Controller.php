@@ -4,6 +4,7 @@ namespace Core;
 
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
+use \Twig\Extension\DebugExtension;
 
 class Controller
 {
@@ -16,6 +17,8 @@ class Controller
         $twig = new Environment($loader, [
             'debug' => true
         ]);
+
+        $twig->addExtension(new DebugExtension());
 
         echo $twig->render($path.'.html.twig' , $datas);
     }

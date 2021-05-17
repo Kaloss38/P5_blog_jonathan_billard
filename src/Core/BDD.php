@@ -5,8 +5,8 @@
 
 	class BDD extends PDO
 	{
-		private object $database;
-		private static object $instance;
+		private $database;
+		private static $instance;
 		
 		private function __construct($datasource)
 		{
@@ -21,7 +21,7 @@
 			{
 				self::$instance = new BDD($datasource);
 			}
-			return self::$instance->database;
+			return self::$instance->_bdd;
 		}
 
 		public function getDatabase(){

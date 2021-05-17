@@ -6,8 +6,8 @@
 
 	class PostManager extends BaseManager
 	{
-		public function __construct($datasource)
+		public function __construct()
 		{
-			parent::__construct("post","Post",$datasource);	
+			parent::__construct("post","Post");	
 		}
 	}

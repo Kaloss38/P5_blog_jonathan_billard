@@ -11,9 +11,10 @@
 		private $_object;
 		protected $_bdd;
 		
-		public function __construct($table,$object,$datasource)
+		public function __construct($table,$object)
 		{
 			$this->_table = $table;
+			
 			$this->_object = $object;
 			$configFile = file_get_contents(CONF_DIR . '/config.json');
 			$config = json_decode($configFile);
@@ -25,15 +26,16 @@
 		{
 			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table . " WHERE id=?");
 			$req->execute(array($id));
-			$req->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,$this->_obj);
+			$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE,$this->_obj);
 			return $req->fetch();
 		}
 		
 		public function getAll()
 		{
+			
 			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table);
 			$req->execute();
-			$req->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,$this->_obj);
+			$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE,$this->_object);
 			return $req->fetchAll();
 		}
 		
