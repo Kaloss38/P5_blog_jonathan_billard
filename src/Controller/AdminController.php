@@ -12,7 +12,7 @@ class AdminController extends Controller{
         $postManager = new PostManager();
         $posts = $postManager->getAll();
 
-        return $this->render('admin/homeAdmin', [
+        $this->render('admin/homeAdmin', [
             'posts' => $posts
         ]);
     }
