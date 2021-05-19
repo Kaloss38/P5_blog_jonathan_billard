@@ -1,5 +1,5 @@
 {% extends "layouts/default.html.twig" %}
-{% block title %}Administration{% endblock %}
+{% block title %}Ajout d'un article{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -36,10 +36,27 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Liste des articles</h1>
-            {% for post in posts %}
-                {{ dump(post) }}
-            {% endfor %}
+            <h1 class="h2">Ajouter un article</h1>
+                <form action="/admin/articles-save">
+                    <div class="form-group py-2">
+                        <label for="title">Titre de l'article</label>
+                        <input name="title" type="text" class="form-control" id="title-input" placeholder="Entrer un titre">
+                    </div>
+                    <div class="form-group py-2">
+                        <label for="header">Introduction</label>
+                        <input name="header" type="text" class="form-control" id="intro-input" placeholder="Entrez une introduction">
+                    </div>
+                    <div class="form-group py-2">
+                        <label for="content">Votre article</label>
+                        <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre contenu...">
+                    </div>
+                    <div class="custom-file py-2">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choissisez une image à la une</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Enregistrer</button>
+                </form>
+                
           </div>
         </main>
       </div>

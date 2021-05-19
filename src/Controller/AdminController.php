@@ -16,4 +16,13 @@ class AdminController extends Controller{
             'posts' => $posts
         ]);
     }
+
+    public function addPost(){
+
+        $this->render('/admin/addPost', []);
+    }
+
+    public function savePost(){
+        print_r('Salut !');
+    }
 }
