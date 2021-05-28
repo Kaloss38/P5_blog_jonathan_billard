@@ -9,6 +9,7 @@ class AdminController extends Controller{
 
     public function index()
     {
+
         $postManager = new PostManager();
         $posts = $postManager->getAll();
 
@@ -47,7 +48,7 @@ class AdminController extends Controller{
             $this->redirectTo('articles');
         }
 
-        
+
     }
 
 

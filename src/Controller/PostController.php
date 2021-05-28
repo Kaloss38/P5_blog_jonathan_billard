@@ -13,7 +13,7 @@ class PostController extends Controller{
         $postManager = new PostManager();
         $posts = $postManager->getAll();
         
-        return $this->render('public/actualities', [
+        $this->render('public/actualities', [
             'posts' => $posts
         ]);
     }
