@@ -1,18 +1,10 @@
 <?php
 
-use Core\Entity;
-
-class Comment extends Entity{
+class Comment {
     private ?int $id;
     private string $content;
     private \Datetime $creationDate;
     private bool $isValidated;
-
-    public function __construct(array $data = []){
-        if(!empty($data)){
-            $this->hydrate($data);
-        }
-    }
 
     /* GETTERS / SETTERS */
 

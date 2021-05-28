@@ -1,8 +1,6 @@
 <?php
 
-use Core\Entity;
-
-class User extends Entity{
+class User {
     private ?int $id;
     private string $pseudo;
     private string $firstname;
@@ -12,13 +10,7 @@ class User extends Entity{
     private bool $isAdmin;
     private string $password;
     private string $token;
-
-    public function __construct(array $data = []){
-        if(!empty($data)){
-            $this->hydrate($data);
-        }
-    }
-
+    
     /* GETTERS / SETTERS */
 
     /*

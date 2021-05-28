@@ -1,0 +1,72 @@
+{% extends "layouts/default.html.twig" %}
+{% block title %}Ajout d'un article{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/admin/articles">
+                  <span data-feather="home"></span>Tous les articles
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/articles-add">
+                  <span data-feather="file"></span>
+                  Ajouter un article
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/commentaires/validate">
+                  <span data-feather="file"></span>
+                  Commentaire(s) validés
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/commentaires/waiting">
+                  <span data-feather="file"></span>
+                  Commentaire(s) en attente
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Ajouter un article</h1>
+                <form action="/admin/articles-save">
+                    <div class="form-group py-2">
+                        <label for="title">Titre de l'article</label>
+                        <input name="title" type="text" class="form-control" id="title-input" placeholder="Entrer un titre">
+                    </div>
+                    <div class="form-group py-2">
+                        <label for="header">Introduction</label>
+                        <input name="header" type="text" class="form-control" id="intro-input" placeholder="Entrez une introduction">
+                    </div>
+                    <div class="form-group py-2">
+                        <label for="content">Votre article</label>
+                        <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre contenu...">
+                    </div>
+                    <div class="custom-file py-2">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choissisez une image à la une</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Enregistrer</button>
+                </form>
+                
+          </div>
+        </main>
+      </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        tinymce.init({
+        selector: '#content'
+      });
+    </script>
+{% endblock %}

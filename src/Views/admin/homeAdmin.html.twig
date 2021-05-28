@@ -2,5 +2,46 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-    <p>Bonjour, Vous êtes sur la page Admin</p>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/admin/articles">
+                  <span data-feather="home"></span>Tous les articles
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/articles-add">
+                  <span data-feather="file"></span>
+                  Ajouter un article
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/commentaires/validate">
+                  <span data-feather="file"></span>
+                  Commentaire(s) validés
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/commentaires/waiting">
+                  <span data-feather="file"></span>
+                  Commentaire(s) en attente
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Liste des articles</h1>
+            {% for post in posts %}
+                {{ dump(post) }}
+            {% endfor %}
+          </div>
+        </main>
+      </div>
+    </div>
 {% endblock %}

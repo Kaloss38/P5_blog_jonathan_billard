@@ -1,8 +1,8 @@
 <?php
 
-use Core\Entity;
+namespace App\Entity;
 
-class Post extends Entity{
+class Post{
     private ?int $id;
     private string $title;
     private string $header;
@@ -10,12 +10,6 @@ class Post extends Entity{
     private \DateTime $creationDate;
     private \DateTime $modificationDate;
     private string $thumbnail;
-
-    public function __construct(array $data = []){
-        if(!empty($data)){
-            $this->hydrate($data);
-        }
-    }
 
     /* GETTERS / SETTERS */
 

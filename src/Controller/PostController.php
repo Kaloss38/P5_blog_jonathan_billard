@@ -10,10 +10,7 @@ class PostController extends Controller{
 
     public function index()
     {
-
-        
         $postManager = new PostManager();
-
         $posts = $postManager->getAll();
         
         $this->render('public/actualities', [
