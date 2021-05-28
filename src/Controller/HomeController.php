@@ -8,6 +8,6 @@ class HomeController extends Controller{
 
     public function home()
     {
-        $this->render('public/home', []);
+        return $this->render('public/home', []);
     }
 }

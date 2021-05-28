@@ -6,10 +6,6 @@ class Comment {
     private \Datetime $creationDate;
     private bool $isValidated;
 
-    public function __construct(){
-
-    }
-
     /* GETTERS / SETTERS */
 
     /*

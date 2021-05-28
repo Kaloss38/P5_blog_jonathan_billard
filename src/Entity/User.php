@@ -10,11 +10,7 @@ class User {
     private bool $isAdmin;
     private string $password;
     private string $token;
-
-    public function __construct(){
-
-    }
-
+    
     /* GETTERS / SETTERS */
 
     /*

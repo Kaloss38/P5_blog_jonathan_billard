@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Entity;
+
 class Post{
     private ?int $id;
     private string $title;
@@ -8,10 +10,6 @@ class Post{
     private \DateTime $creationDate;
     private \DateTime $modificationDate;
     private string $thumbnail;
-
-    public function __construct(){
-
-    }
 
     /* GETTERS / SETTERS */
 
