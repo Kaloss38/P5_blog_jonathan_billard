@@ -26,7 +26,7 @@ class AdminController extends Controller{
         //set image to save in local
         $file = $_FILES['image'];
         $repertoire = "public/img/";
-        $imgToAdd = $this->addImage($file, $repertoire);
+        // $imgToAdd = $this->addImage($file, $repertoire);
 
         $post = [
           'title' => $_POST['title'],
@@ -34,7 +34,7 @@ class AdminController extends Controller{
           'content' => $_POST['content'],
           'creationDate' => '',
           'modificationDate' => '',
-          'thumbnail' => $imgToAdd
+        //   'thumbnail' => $imgToAdd
         ];
 
         //new instance POST
