@@ -2,7 +2,7 @@
 
     namespace App\Manager;
     
-    class PropertyNotFoundException extends Exception
+    class PropertyNotFoundException extends \Exception
     {
         private $_className;
 		private $_property;

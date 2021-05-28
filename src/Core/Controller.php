@@ -31,6 +31,7 @@ class Controller
         exit();
     }
 
+    //Check if form is submit
     public function isSubmit(string $submit){
         if(isset($_POST[$submit])){
             return true;
@@ -38,7 +39,7 @@ class Controller
 
         return false;
     }
-
+    //Check if form fields are valide
     public function isValidated(array $fields){
         $isValide = true;
         foreach($fields as $value){
@@ -48,5 +49,21 @@ class Controller
         }
 
         return $isValide;
+    }
+
+    /*
+    *
+    * Hydrate function for entities
+    *
+    */
+
+    public function hydrate(array $data){
+        foreach($data as $attribut => $value){
+            $method = 'set'.ucfirst($attribut);
+
+            if(method_exists($this, $method)){
+                $this->$method($value);
+            }
+        }
     }
 }
