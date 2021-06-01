@@ -14,15 +14,16 @@
 
 		public function createPost(Post $post){
 			$sql = "
-			INSERT INTO post(title, header, content, creation_date, modification_date, thumbnail) VALUES(:title, :header, :content, :creation_date, :modification_date, :thumbnail)";
+			INSERT INTO post(user_id,title, header, content, creation_date, modification_date, thumbnail) VALUES(:user_id, :title, :header, :content, :creation_date, :modification_date, :thumbnail)";
 			$req = $this->_bdd->prepare($sql);
 
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
-			$req->bindValue(':creation_date', $post->getCreationDate());
-			$req->bindValue(':modification_date', $post->getModificationDate());
+			$req->bindValue(':creation_date', $post->getCreationDate()->format('Y-m-d H:i:s'));
+			$req->bindValue(':modification_date', $post->getModificationDate()->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $post->getThumbnail());
+			$req->bindValue(':user_id', 1);
 
 			$req->execute();
 		}

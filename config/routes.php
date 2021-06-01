@@ -16,7 +16,7 @@ Router::get('/admin/articles', 'AdminController@index')->setName('adminAllPosts'
 //add post view
 Router::get('/admin/articles-add', 'AdminController@addPost')->setName('adminAddPost');
 //save post view
-Router::get('/admin/articles-save', 'AdminController@savePost')->setName('adminSavePost');
+Router::post('/admin/articles-save', 'AdminController@savePost');
 //update post
 Router::get('/admin/articles/update/{id}', 'AdminController@updatePost');
 //delete post

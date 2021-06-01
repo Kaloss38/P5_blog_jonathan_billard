@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 class Post{
-    private ?int $id;
+    private int $id;
     private string $title;
     private string $header;
     private string $content;
