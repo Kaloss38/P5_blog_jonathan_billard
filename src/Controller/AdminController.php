@@ -27,34 +27,24 @@ class AdminController extends Controller{
     public function savePost(){
         //set image to save in local
         $file = $_FILES['thumbnail'];
-        $repertoire = "../public/img/";
-        $imgToAdd = $this->addImage($file, $repertoire);
 
-        $currentTime = $this->getCurrentTime();
+        $currentTimeFormat = $this->getCurrentTime()->format('Y-m-d_H:i:s');
 
-        $post = [
-          'title' => $_POST['title'],
-          'header' => $_POST['header'],
-          'content' => $_POST['content'],
-          'creationDate' => $currentTime,
-          'modificationDate' => $currentTime,
-          'thumbnail' => $imgToAdd
-        ];
+        $this->savePicture($file, $currentTimeFormat);
+        $pictureLink = $this->searchPicture($currentTimeFormat);       
 
         //new instance POST
         $newPost = new Post();
         //Hydrate POST instance
-        $this->hydrate($newPost, $post);
+        $this->hydrate($newPost, $_POST);
 
         //check form for issubmit
-        if( $this->isSubmit('submit') && $this->isValidated($post)){
+        if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $postManager = new PostManager();
-            $postManager->createPost($newPost);
+            $postManager->createPost($newPost, $pictureLink);
 
             $this->redirectTo('articles');
         }
-
-
     }
 
 

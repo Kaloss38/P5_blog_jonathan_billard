@@ -53,13 +53,15 @@ class Controller
     }
     //Check if form fields are valide
     public function isValidated(array $fields){
+        
         $isValide = true;
         foreach($fields as $value){
             if($value == null || !isset($value) || $value == ""){
                 $isValide = false;
+                
             }
         }
-
+        
         return $isValide;
     }
 
@@ -86,28 +88,40 @@ class Controller
     *
     */
 
-    public function addImage($file, $dir){
-        
-        if(!isset($file['name']) || empty($file['name']))
-            throw new \Exception("Vous devez indiquer une image");
-    
-        if(!file_exists($dir)) mkdir($dir,0777);
-    
-        $extension = strtolower(pathinfo($file['name'],PATHINFO_EXTENSION));
-        $random = rand(0,99999);
-        $target_file = $dir.$random."_".$file['name'];
-        
-        if(!getimagesize($file["tmp_name"]))
-            throw new \Exception("Le fichier n'est pas une image");
-        if($extension !== "jpg" && $extension !== "jpeg" && $extension !== "png" && $extension !== "gif")
-            throw new \Exception("L'extension du fichier n'est pas reconnu");
-        if(file_exists($target_file))
-            throw new \Exception("Le fichier existe déjà");
-        if($file['size'] > 500000)
-            throw new \Exception("Le fichier est trop gros");
-        if(!move_uploaded_file($file['tmp_name'], $target_file))
-            throw new \Exception("l'ajout de l'image n'a pas fonctionné");
-        else return ($random."_".$file['name']);
+    public function savePicture($picture, string $name)
+    {
+        if($picture !== NULL && $picture['error'] == 0 && $picture['size'] <= 3000000)
+        {
+            $infosfichier = pathinfo($picture['name']);
+            $extension_upload = $infosfichier['extension'];
+            $extensions_autorisees = array('jpg', 'png', 'gif');
+            if(in_array($extension_upload, $extensions_autorisees))
+            {
+                $picture['name'] = str_replace([':','-',' '], '_', $name) . '.' . $extension_upload;
+                move_uploaded_file($picture['tmp_name'], '../public/img/' . $picture['name']);
+                return true;
+            }
+        }
+    }
+
+    public function searchPicture(string $date_publication)
+    {
+        $extensions = ['.jpg', '.png', '.gif'];
+        foreach($extensions as $extension)
+        {
+            $pathToPicture = '../public/img/' . str_replace([':', '-', ' '], '_', $date_publication) . $extension;
+            if(file_exists($pathToPicture))
+            {
+                $picture = 'public/img/' . str_replace([':', '-', ' '], '_', $date_publication) . $extension;
+            }
+        }
+
+        if(!isset($picture))
+        {
+            $picture = 'public/img/' . 'default.jpg';
+        }
+
+        return $picture;
     }
 
     /*
@@ -117,10 +131,7 @@ class Controller
     */
 
     public function getCurrentTime(){
-        $dt = new \DateTime("now");
-        
-        return $dt;
+        return new \DateTime("now");
     }
 
-    
 }

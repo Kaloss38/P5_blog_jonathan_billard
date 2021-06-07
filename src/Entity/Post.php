@@ -11,6 +11,11 @@ class Post{
     private \DateTime $modificationDate;
     private string $thumbnail;
 
+    public function __construct()
+    {
+        $this->setCreationDate(new \DateTime("now"));
+    }
+
     /* GETTERS / SETTERS */
 
     /*
