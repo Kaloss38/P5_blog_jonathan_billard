@@ -3,7 +3,7 @@
 	namespace App\Manager;
 
 	use Core\BDD;
-	use App\Manager\PropertyNotFoundException;
+	use App\Handler\PropertyNotFoundException;
 	
 	class BaseManager
 	{

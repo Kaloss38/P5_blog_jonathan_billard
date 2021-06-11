@@ -47,5 +47,13 @@ class AdminController extends Controller{
         }
     }
 
+    public function deletePost($id)
+    {
+       $postManager = new PostManager();
+       $postManager->deletePost($id);
+       
+       $this->redirectTo('articles');
+    }
+
 
 }

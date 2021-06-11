@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\Manager;
+    namespace App\Handler;
     
     class PropertyNotFoundException extends \Exception
     {
