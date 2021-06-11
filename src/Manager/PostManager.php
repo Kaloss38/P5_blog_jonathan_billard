@@ -37,4 +37,16 @@
 
 			$req->execute();
 		}
+
+		public function getPostById($id){
+			$sql= "
+			SELECT * FROM post WHERE id = :id";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->bindValue(":id", $id, \PDO::PARAM_INT);
+
+			$req->execute();
+
+			return $req->fetch();
+		}
 	}

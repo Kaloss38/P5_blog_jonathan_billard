@@ -52,7 +52,22 @@ class AdminController extends Controller{
        $postManager = new PostManager();
        $postManager->deletePost($id);
        
-       $this->redirectTo('articles');
+       $this->redirectTo('/admin/articles');
+    }
+
+    public function editPost($id)
+    {
+        $postManager = new PostManager();
+        $post = $postManager->getPostById($id);
+        //use updatePost here
+        return $this->render('admin/editPost', [
+            'post' => $post
+        ]);
+    }
+
+    public function updatePost($id)
+    {
+
     }
 
 

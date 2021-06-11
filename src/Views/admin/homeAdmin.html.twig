@@ -54,7 +54,7 @@
                       <td>{{ post.creationDate|date("d/m/Y H:m", "Europe/Paris") }}</td>
                       <td>Admin</td>
                       <td>
-                        <a href="" class="btn btn-warning">Editer</a>
+                        <a href="/admin/articles/edit/{{ post.id }}" class="btn btn-warning">Editer</a>
                         <a href="/admin/articles/delete/{{ post.id }}" class="btn btn-danger">Supprimer</a>
                       </td>
                     </tr>
