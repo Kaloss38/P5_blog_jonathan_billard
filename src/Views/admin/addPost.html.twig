@@ -37,7 +37,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Ajouter un article</h1>
-                <form action="/admin/articles-save">
+                <form method="POST" action="/admin/articles-save" enctype="multipart/form-data">
                     <div class="form-group py-2">
                         <label for="title">Titre de l'article</label>
                         <input name="title" type="text" class="form-control" id="title-input" placeholder="Entrer un titre">
@@ -51,10 +51,10 @@
                         <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre contenu...">
                     </div>
                     <div class="custom-file py-2">
-                        <input type="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choissisez une image à la une</label>
+                        <input type="file" name="thumbnail" class="custom-file-input" id="thumbnail">
+                        <label class="custom-file-label" for="thumbnail">Choissisez une image à la une</label>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-2">Enregistrer</button>
+                    <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Enregistrer</button>
                 </form>
                 
           </div>

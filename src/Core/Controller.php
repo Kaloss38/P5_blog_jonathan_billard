@@ -53,13 +53,15 @@ class Controller
     }
     //Check if form fields are valide
     public function isValidated(array $fields){
+        
         $isValide = true;
         foreach($fields as $value){
             if($value == null || !isset($value) || $value == ""){
                 $isValide = false;
+                
             }
         }
-
+        
         return $isValide;
     }
 
@@ -69,13 +71,13 @@ class Controller
     *
     */
 
-    public function hydrate(array $data){
+    public function hydrate(Object $obj, array $data){
         
         foreach($data as $attribut => $value){
             $method = 'set'.ucfirst($attribut);
 
-            if(method_exists($this, $method)){
-                $this->$method($value);
+            if(method_exists($obj, $method)){
+                $obj->$method($value);
             }
         }
     }
@@ -86,5 +88,50 @@ class Controller
     *
     */
 
-    
+    public function savePicture($picture, string $name)
+    {
+        if($picture !== NULL && $picture['error'] == 0 && $picture['size'] <= 3000000)
+        {
+            $infosfichier = pathinfo($picture['name']);
+            $extension_upload = $infosfichier['extension'];
+            $extensions_autorisees = array('jpg', 'png', 'gif');
+            if(in_array($extension_upload, $extensions_autorisees))
+            {
+                $picture['name'] = str_replace([':','-',' '], '_', $name) . '.' . $extension_upload;
+                move_uploaded_file($picture['tmp_name'], '../public/img/' . $picture['name']);
+                return true;
+            }
+        }
+    }
+
+    public function searchPicture(string $date_publication)
+    {
+        $extensions = ['.jpg', '.png', '.gif'];
+        foreach($extensions as $extension)
+        {
+            $pathToPicture = '../public/img/' . str_replace([':', '-', ' '], '_', $date_publication) . $extension;
+            if(file_exists($pathToPicture))
+            {
+                $picture = 'public/img/' . str_replace([':', '-', ' '], '_', $date_publication) . $extension;
+            }
+        }
+
+        if(!isset($picture))
+        {
+            $picture = 'public/img/' . 'default.jpg';
+        }
+
+        return $picture;
+    }
+
+    /*
+    *
+    * Get current time
+    *
+    */
+
+    public function getCurrentTime(){
+        return new \DateTime("now");
+    }
+
 }

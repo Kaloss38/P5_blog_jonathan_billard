@@ -11,6 +11,7 @@ class User {
     private string $password;
     private string $token;
     
+    
     /* GETTERS / SETTERS */
 
     /*

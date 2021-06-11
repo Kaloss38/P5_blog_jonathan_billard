@@ -3,13 +3,18 @@
 namespace App\Entity;
 
 class Post{
-    private ?int $id;
+    private int $id;
     private string $title;
     private string $header;
     private string $content;
     private \DateTime $creationDate;
     private \DateTime $modificationDate;
     private string $thumbnail;
+
+    public function __construct()
+    {
+        $this->setCreationDate(new \DateTime("now"));
+    }
 
     /* GETTERS / SETTERS */
 

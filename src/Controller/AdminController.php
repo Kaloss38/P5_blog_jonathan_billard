@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Core\Controller;
 use App\Manager\PostManager;
+use App\Entity\Post;
 
 class AdminController extends Controller{
 
@@ -25,30 +26,25 @@ class AdminController extends Controller{
 
     public function savePost(){
         //set image to save in local
-        $file = $_FILES['image'];
-        $repertoire = "public/img/";
-        // $imgToAdd = $this->addImage($file, $repertoire);
+        $file = $_FILES['thumbnail'];
 
-        $post = [
-          'title' => $_POST['title'],
-          'header' => $_POST['header'],
-          'content' => $_POST['content'],
-          'creationDate' => '',
-          'modificationDate' => '',
-        //   'thumbnail' => $imgToAdd
-        ];
+        $currentTimeFormat = $this->getCurrentTime()->format('Y-m-d_H:i:s');
+
+        $this->savePicture($file, $currentTimeFormat);
+        $pictureLink = $this->searchPicture($currentTimeFormat);       
 
         //new instance POST
+        $newPost = new Post();
         //Hydrate POST instance
+        $this->hydrate($newPost, $_POST);
 
-        if( $this->isSubmit("") && $this->isValidated($post)){
+        //check form for issubmit
+        if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $postManager = new PostManager();
+            $postManager->createPost($newPost, $pictureLink);
 
-            // $postManager->createPost();
             $this->redirectTo('articles');
         }
-
-
     }
 
 
