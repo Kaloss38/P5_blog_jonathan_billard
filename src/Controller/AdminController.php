@@ -78,7 +78,7 @@ class AdminController extends Controller{
     public function updatePost(Post $post)
     {
         $file = $_FILES['thumbnail']['size'];
-
+        
         if($file == 0)
         {
             $postManager = new PostManager();

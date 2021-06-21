@@ -38,7 +38,7 @@
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
-			$req->bindValue(':creation_date', $post->getCreationDate()->format('Y-m-d H:i:s'));
+			$req->bindValue(':creation_date', $post->creation_date);
 			$req->bindValue(':modification_date', $post->getModificationDate()->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $img);
 
