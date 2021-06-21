@@ -1,0 +1,13 @@
+{% extends "layouts/default.html.twig" %}
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block body %}
+    <div class="text-center mt-4">
+        <img class="col-3 img-thumbnail text-center" src="../../../{{ post.thumbnail }}" />
+    </div>
+    <div class="container mt-4">
+        <h1 class="text-center">{{ post.title }}</h1>
+        <p class="text-center">{{ post.header }}</p>
+        <p class="text-center mt-4 mb-4">{{ post.content|raw }}</p>
+    </div>
+{% endblock %}

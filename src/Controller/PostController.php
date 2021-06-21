@@ -17,4 +17,14 @@ class PostController extends Controller{
             'posts' => $posts
         ]);
     }
+
+    public function showPost($id)
+    {
+        $postManager = new PostManager();
+        $post = $postManager->getById($id);
+
+        return $this->render('public/post', [
+            'post' => $post
+        ]);
+    }
 }

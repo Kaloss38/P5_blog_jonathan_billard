@@ -18,8 +18,7 @@ Router::get('/admin/articles-add', 'AdminController@addPost')->setName('adminAdd
 //save post view
 Router::post('/admin/articles-save', 'AdminController@savePost')->setName('adminSavePost');
 //update post
-Router::get('/admin/articles/edit/{id}', 'AdminController@editPost')->setName('adminEditPost');
-Router::get('/admin/articles/update/{id}', 'AdminController@updatePost')->setName('adminUpdatePost');
+Router::all('/admin/articles/edit/{id}', 'AdminController@editPost');
 //delete post
 Router::get('/admin/articles/delete/{id}', 'AdminController@deletePost')->setName('adminDeletePost');
 
@@ -37,5 +36,8 @@ Router::get('/admin/commentaires/waiting/delete/{id}', 'AdminController@deleteCo
 
 //------ ACTUALITIES ------//
 Router::get('/news', 'PostController@index')->setName('news');
+
+//------ POST ------//
+Router::get('/news/post/{id}', 'PostController@showPost')->setName('post');
 
 

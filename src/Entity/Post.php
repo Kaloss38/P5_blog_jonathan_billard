@@ -14,6 +14,7 @@ class Post{
     public function __construct()
     {
         $this->setCreationDate(new \DateTime("now"));
+        $this->setModificationDate(new \DateTime("now"));
     }
 
     /* GETTERS / SETTERS */

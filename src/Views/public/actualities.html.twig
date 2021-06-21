@@ -2,8 +2,19 @@
 {% block title %}Actualités{% endblock %}
 
 {% block body %}
-    <p>Bonjour, Vous êtes à la page des actualités</p>
+    <h1 class="text-center">Liste des articles</h1>
+    <div class="container d-flex justify-content-between mt-4">
     {% for post in posts %}
-        {{ dump(post) }}
+        {# {{ dump(post) }} #}
+        <div class="card mb-4" style="width: 18rem;">
+            <img class="card-img-top" src="../../../{{ post.thumbnail }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.header|slice(0, 35) }}...</p>
+                <p class="card-text"> créé le {{ post.creation_date|date('d/m/Y') }}</p>
+                <a href="/news/post/{{ post.id }}" class="btn btn-primary">Lire l'article</a>
+            </div>
+        </div>
     {% endfor %}
+    </div>
 {% endblock %}

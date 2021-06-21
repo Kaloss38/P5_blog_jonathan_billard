@@ -1,43 +1,18 @@
-{% extends "layouts/default.html.twig" %}
+{% extends "layouts/admin-default.html.twig" %}
 {% block title %}Article Title Here{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="/admin/articles">
-                  <span data-feather="home"></span>Tous les articles
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/admin/articles-add">
-                  <span data-feather="file"></span>
-                  Ajouter un article
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/admin/commentaires/validate">
-                  <span data-feather="file"></span>
-                  Commentaire(s) validés
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/admin/commentaires/waiting">
-                  <span data-feather="file"></span>
-                  Commentaire(s) en attente
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Ajouter un article</h1>
-                <form method="POST" action="/admin/articles-save" enctype="multipart/form-data">
+            <h1 class="h2">Modifier l'article "{{ post.title }}"</h1>
+                <form method="POST" action="/admin/articles/edit/{{ post.id }}" enctype="multipart/form-data">
+                    <div class="d-flex">
+                      <img src="../../../{{ post.thumbnail }}" class="col-2 py-2">
+                      <div class="p-4 align-self-center">
+                          <label class="custom-file-label" for="image">Modifier votre image à la une</label>
+                          <input type="file" name="thumbnail" class="form-control" id="image">
+                      </div>
+                    </div>
                     <div class="form-group py-2">
                         <label for="title">Titre</label>
                         <input name="title" type="text" class="form-control" id="title-input" value="{{ post.title }}" placeholder="Entrer un titre">
@@ -48,25 +23,20 @@
                     </div>
                     <div class="form-group py-2">
                         <label for="content">Votre article</label>
-                        <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre contenu...">
+                        <input name="content" type="textarea" class="form-control" id="content" value="{{ post.content }}" placeholder="Votre contenu...">
                     </div>
-                    <div class="custom-file py-2">
-                        <input type="file" name="thumbnail" class="custom-file-input" id="thumbnail">
-                        <label class="custom-file-label" for="thumbnail">Choissisez une image à la une</label>
-                    </div>
+                    
                     <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Enregistrer</button>
                 </form>
                 
           </div>
-        </main>
-      </div>
-    </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
     <script>
         tinymce.init({
-        selector: '#content'
+        selector: '#content',
+        height : "480"
       });
     </script>
 {% endblock %}

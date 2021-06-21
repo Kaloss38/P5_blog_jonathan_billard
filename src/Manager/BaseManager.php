@@ -22,20 +22,23 @@
 			$this->_bdd = BDD::getInstance($datasource);
 		}
 		
-		public function getById($id)
+		//Renvoi un object
+		public function getById($id, $param = null)
 		{
-			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table . " WHERE id=?");
+			$paramCondition = !is_null($param) ? $param : "*";
+			//Tags pour requete
+			$req = $this->_bdd->prepare("SELECT ". $paramCondition ." FROM " . $this->_table . " WHERE id=?");
 			$req->execute(array($id));
-			$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE,$this->_obj);
+			//Pointer vers le dossier des models
+			$req->setFetchMode(\PDO::FETCH_CLASS, $this->_object);
 			return $req->fetch();
 		}
 		
 		public function getAll()
 		{
-			
-			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table);
+			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table. " ORDER BY id DESC");
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE,$this->_object);
+			$req->setFetchMode(\PDO::FETCH_CLASS, $this->_object);
 			return $req->fetchAll();
 		}
 		

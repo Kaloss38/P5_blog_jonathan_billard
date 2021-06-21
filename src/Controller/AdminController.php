@@ -43,7 +43,8 @@ class AdminController extends Controller{
             $postManager = new PostManager();
             $postManager->createPost($newPost, $pictureLink);
 
-            $this->redirectTo('articles');
+            $this->addFlash('success', 'Votre acticle à bien été créé.');
+            $this->redirectTo('/admin/articles');
         }
     }
 
@@ -52,22 +53,49 @@ class AdminController extends Controller{
        $postManager = new PostManager();
        $postManager->deletePost($id);
        
+       $this->addFlash('success', 'Votre acticle à bien été supprimé.');
        $this->redirectTo('/admin/articles');
     }
 
     public function editPost($id)
     {
         $postManager = new PostManager();
-        $post = $postManager->getPostById($id);
-        //use updatePost here
+        $post = $postManager->getById($id);
+        
+        if( $this->isSubmit('submit') && $this->isValidated($_POST)){
+            $this->hydrate($post, $_POST);
+            $this->updatePost($post);
+
+            $this->addFlash('success', 'Votre acticle à bien été modifié.');
+            $this->redirectTo('/admin/articles');
+        }
+
         return $this->render('admin/editPost', [
             'post' => $post
         ]);
     }
 
-    public function updatePost($id)
+    public function updatePost(Post $post)
     {
+        $file = $_FILES['thumbnail']['size'];
 
+        if($file == 0)
+        {
+            $postManager = new PostManager();
+            $postManager->updatePost($post, $post->getThumbnail());
+            
+        }
+        else 
+        {
+            $newfile = $_FILES['thumbnail'];
+            $currentTimeFormat = $this->getCurrentTime()->format('Y-m-d_H:i:s');
+
+            $this->savePicture($newfile, $currentTimeFormat);
+            $pictureLink = $this->searchPicture($currentTimeFormat);
+            
+            $postManager = new PostManager();
+            $postManager->updatePost($post, $pictureLink);  
+        }
     }
 
 

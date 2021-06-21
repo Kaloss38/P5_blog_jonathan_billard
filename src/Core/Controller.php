@@ -94,7 +94,7 @@ class Controller
         {
             $infosfichier = pathinfo($picture['name']);
             $extension_upload = $infosfichier['extension'];
-            $extensions_autorisees = array('jpg', 'png', 'gif');
+            $extensions_autorisees = array('jpg', 'JPG', 'png', 'gif');
             if(in_array($extension_upload, $extensions_autorisees))
             {
                 $picture['name'] = str_replace([':','-',' '], '_', $name) . '.' . $extension_upload;
@@ -132,6 +132,15 @@ class Controller
 
     public function getCurrentTime(){
         return new \DateTime("now");
+    }
+
+    public function addFlash(string $type, string $msg)
+    {
+        // session_start();
+        // $_SESSION['alert'] = [
+        //     "type" => $type,
+        //     "msg" => $msg
+        // ];
     }
 
 }
