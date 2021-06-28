@@ -14,14 +14,14 @@
 
 		public function createPost(Post $post, string $pictureLink){
 			$sql = "
-			INSERT INTO post(user_id, title, header, content, creation_date, thumbnail) VALUES(:user_id, :title, :header, :content, :creation_date, :thumbnail)";
+			INSERT INTO post(userId, title, header, content, creationDate, thumbnail) VALUES(:userId, :title, :header, :content, :creationDate, :thumbnail)";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':user_id', 1);
+			$req->bindValue(':userId', 1);
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
-			$req->bindValue(':creation_date', $post->getCreationDate()->format('Y-m-d H:i:s'));
+			$req->bindValue(':creationDate', $post->getCreationDate()->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $pictureLink);
 			
 			$req->execute();
@@ -30,16 +30,16 @@
 		public function updatePost(Post $post, string $img)
 		{
 			$sql = "
-			UPDATE post SET user_id=:user_id, title=:title, header=:header, content=:content, creation_date=:creation_date, modification_date=:modification_date, thumbnail=:thumbnail WHERE id=:id";
+			UPDATE post SET user_id=:user_id, title=:title, header=:header, content=:content, creationDate=:creationDate, modificationDate=:modificationDate, thumbnail=:thumbnail WHERE id=:id";
 			$req = $this->_bdd->prepare($sql);
 
 			$req->bindValue(':id', $post->getId());
-			$req->bindValue(':user_id', 1);
+			$req->bindValue(':userId', 1);
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
-			$req->bindValue(':creation_date', $post->creation_date);
-			$req->bindValue(':modification_date', $post->getModificationDate()->format('Y-m-d H:i:s'));
+			$req->bindValue(':creationDate', $post->creation_date);
+			$req->bindValue(':modificationDate', $post->getModificationDate()->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $img);
 
 			$req->execute();

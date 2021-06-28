@@ -23,15 +23,13 @@
 		}
 		
 		//Renvoi un object
-		public function getById($id, $param = null)
+		public function getById($id)
 		{
-			$paramCondition = !is_null($param) ? $param : "*";
-			//Tags pour requete
-			$req = $this->_bdd->prepare("SELECT ". $paramCondition ." FROM " . $this->_table . " WHERE id=?");
+			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table . " WHERE id=?");
 			$req->execute(array($id));
-			//Pointer vers le dossier des models
 			$req->setFetchMode(\PDO::FETCH_CLASS, $this->_object);
 			return $req->fetch();
+			
 		}
 		
 		public function getAll()

@@ -86,7 +86,7 @@ class Post{
 
     public function getCreationDate(): \DateTime
     {
-        return $this->creationDate;
+        return new \DateTime($this->creationDate);
     }
 
     public function setCreationDate(\DateTime $creationDate): void

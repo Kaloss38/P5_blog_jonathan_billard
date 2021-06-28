@@ -61,7 +61,7 @@ class AdminController extends Controller{
     {
         $postManager = new PostManager();
         $post = $postManager->getById($id);
-        
+        var_dump($post);
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $this->hydrate($post, $_POST);
             $this->updatePost($post);

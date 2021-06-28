@@ -20,11 +20,14 @@ class Controller
             'debug' => true
         ]);
 
-        $this->twig->addExtension(new DebugExtension());    
+        $this->twig->addExtension(new DebugExtension()); 
+        
+        
     }
 
     //Twig - Render Method
     public function render(string $path, $datas = []){
+        $this->twig->addGlobal("session", $_SESSION);
         
         $view = $this->twig->load($path.'.html.twig');
         $content = $view->render($datas);
@@ -136,11 +139,10 @@ class Controller
 
     public function addFlash(string $type, string $msg)
     {
-        // session_start();
-        // $_SESSION['alert'] = [
-        //     "type" => $type,
-        //     "msg" => $msg
-        // ];
+        $_SESSION['alert'] = [
+            "type" => $type,
+            "msg" => $msg
+        ];
     }
 
 }
