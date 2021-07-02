@@ -15,13 +15,16 @@
                 <tr>
                   <th scope="col">Titre</th>
                   <th scope="col">Date de création</th>
+                  <th scope="col">Date de modification</th>
                   <th scope="col">Auteur</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {% if posts is not empty %}
+                  
                   {% for post in posts %}
+                  
                   <div class="modal fade" id="modalForDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -41,7 +44,8 @@
                 
                     <tr>
                       <td>{{ post.title }}</td>
-                      <td>{{ post.creation_date|date('d/m/Y H:i') }}</td>
+                      <td>{{ post.creationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+                      <td>{{ post.modificationDate is null ? '' : post.modificationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
                       <td>Admin</td>
                       <td>
                         <a href="/admin/articles/edit/{{ post.id }}" class="btn btn-warning">Editer</a>

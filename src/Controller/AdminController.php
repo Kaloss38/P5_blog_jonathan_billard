@@ -34,9 +34,7 @@ class AdminController extends Controller{
         $pictureLink = $this->searchPicture($currentTimeFormat);       
 
         //new instance POST
-        $newPost = new Post();
-        //Hydrate POST instance
-        $this->hydrate($newPost, $_POST);
+        $newPost = new Post($_POST);
 
         //check form for issubmit
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
@@ -61,9 +59,12 @@ class AdminController extends Controller{
     {
         $postManager = new PostManager();
         $post = $postManager->getById($id);
-        var_dump($post);
+
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
-            $this->hydrate($post, $_POST);
+            $post->setTitle($_POST['title']);
+            $post->setHeader($_POST['header']);
+            $post->setContent($_POST['content']);
+            
             $this->updatePost($post);
 
             $this->addFlash('success', 'Votre acticle à bien été modifié.');

@@ -36,7 +36,7 @@
 		{
 			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table. " ORDER BY id DESC");
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS, $this->_object);
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $this->_object);
 			return $req->fetchAll();
 		}
 		

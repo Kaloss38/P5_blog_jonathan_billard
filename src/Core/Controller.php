@@ -19,7 +19,7 @@ class Controller
         $this->twig = new Environment($loader, [
             'debug' => true
         ]);
-
+        
         $this->twig->addExtension(new DebugExtension()); 
         
         
@@ -66,23 +66,6 @@ class Controller
         }
         
         return $isValide;
-    }
-
-    /*
-    *
-    * Hydrate function for entities
-    *
-    */
-
-    public function hydrate(Object $obj, array $data){
-        
-        foreach($data as $attribut => $value){
-            $method = 'set'.ucfirst($attribut);
-
-            if(method_exists($obj, $method)){
-                $obj->$method($value);
-            }
-        }
     }
 
     /*

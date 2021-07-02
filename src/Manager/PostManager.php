@@ -30,17 +30,19 @@
 		public function updatePost(Post $post, string $img)
 		{
 			$sql = "
-			UPDATE post SET user_id=:user_id, title=:title, header=:header, content=:content, creationDate=:creationDate, modificationDate=:modificationDate, thumbnail=:thumbnail WHERE id=:id";
+			UPDATE post SET userId = :userId, title = :title, header = :header, content = :content, creationDate=:creationDate, modificationDate = :modificationDate, thumbnail = :thumbnail WHERE id = :id";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':id', $post->getId());
+			$modificationDateUpdate = new \DateTime("now");
+
 			$req->bindValue(':userId', 1);
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
-			$req->bindValue(':creationDate', $post->creation_date);
-			$req->bindValue(':modificationDate', $post->getModificationDate()->format('Y-m-d H:i:s'));
+			$req->bindValue(':creationDate', $post->getCreationDate()->format('Y-m-d H:i:s'));
+			$req->bindValue(':modificationDate', $modificationDateUpdate->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $img);
+			$req->bindValue(':id', $post->getId());
 
 			$req->execute();
 		}
