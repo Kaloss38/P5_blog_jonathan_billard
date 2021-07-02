@@ -19,12 +19,15 @@ class Controller
         $this->twig = new Environment($loader, [
             'debug' => true
         ]);
-
-        $this->twig->addExtension(new DebugExtension());    
+        
+        $this->twig->addExtension(new DebugExtension()); 
+        
+        
     }
 
     //Twig - Render Method
     public function render(string $path, $datas = []){
+        $this->twig->addGlobal("session", $_SESSION);
         
         $view = $this->twig->load($path.'.html.twig');
         $content = $view->render($datas);
@@ -67,23 +70,6 @@ class Controller
 
     /*
     *
-    * Hydrate function for entities
-    *
-    */
-
-    public function hydrate(Object $obj, array $data){
-        
-        foreach($data as $attribut => $value){
-            $method = 'set'.ucfirst($attribut);
-
-            if(method_exists($obj, $method)){
-                $obj->$method($value);
-            }
-        }
-    }
-
-    /*
-    *
     * Save IMG in local
     *
     */
@@ -94,7 +80,7 @@ class Controller
         {
             $infosfichier = pathinfo($picture['name']);
             $extension_upload = $infosfichier['extension'];
-            $extensions_autorisees = array('jpg', 'png', 'gif');
+            $extensions_autorisees = array('jpg', 'JPG', 'png', 'gif');
             if(in_array($extension_upload, $extensions_autorisees))
             {
                 $picture['name'] = str_replace([':','-',' '], '_', $name) . '.' . $extension_upload;
@@ -132,6 +118,14 @@ class Controller
 
     public function getCurrentTime(){
         return new \DateTime("now");
+    }
+
+    public function addFlash(string $type, string $msg)
+    {
+        $_SESSION['alert'] = [
+            "type" => $type,
+            "msg" => $msg
+        ];
     }
 
 }

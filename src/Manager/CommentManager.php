@@ -6,8 +6,8 @@
 
 	class CommentManager extends BaseManager
 	{
-		public function __construct($datasource)
+		public function __construct()
 		{
-			parent::__construct("comment","Comment",$datasource);	
+			parent::__construct("comment", "App\Entity\Comment");	
 		}
 	}

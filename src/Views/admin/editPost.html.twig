@@ -1,0 +1,42 @@
+{% extends "layouts/admin-default.html.twig" %}
+{% block title %}Article Title Here{% endblock %}
+
+{% block body %}
+
+          <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Modifier l'article "{{ post.title }}"</h1>
+                <form method="POST" action="/admin/articles/edit/{{ post.id }}" enctype="multipart/form-data">
+                    <div class="d-flex">
+                      <img src="../../../{{ post.thumbnail }}" class="col-2 py-2">
+                      <div class="p-4 align-self-center">
+                          <label class="custom-file-label" for="image">Modifier votre image à la une</label>
+                          <input type="file" name="thumbnail" class="form-control" id="image">
+                      </div>
+                    </div>
+                    <div class="form-group py-2">
+                        <label for="title">Titre</label>
+                        <input name="title" type="text" class="form-control" id="title-input" value="{{ post.title }}" placeholder="Entrer un titre">
+                    </div>
+                    <div class="form-group py-2">
+                        <label for="header">Introduction</label>
+                        <input name="header" type="text" class="form-control" id="intro-input" value="{{ post.header }}" placeholder="Entrez une introduction">
+                    </div>
+                    <div class="form-group py-2">
+                        <label for="content">Votre article</label>
+                        <input name="content" type="textarea" class="form-control" id="content" value="{{ post.content }}" placeholder="Votre contenu...">
+                    </div>
+                    
+                    <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Enregistrer</button>
+                </form>
+                
+          </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        tinymce.init({
+        selector: '#content',
+        height : "480"
+      });
+    </script>
+{% endblock %}

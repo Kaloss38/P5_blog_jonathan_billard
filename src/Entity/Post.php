@@ -1,19 +1,21 @@
 <?php
 
 namespace App\Entity;
+use Core\Entity;
 
-class Post{
+class Post extends Entity {
+
     private int $id;
     private string $title;
     private string $header;
     private string $content;
-    private \DateTime $creationDate;
-    private \DateTime $modificationDate;
+    private $creationDate;
+    private $modificationDate;
     private string $thumbnail;
 
-    public function __construct()
+    public function __construct(array $datas = [])
     {
-        $this->setCreationDate(new \DateTime("now"));
+        parent::__construct($datas);    
     }
 
     /* GETTERS / SETTERS */
@@ -85,7 +87,7 @@ class Post{
 
     public function getCreationDate(): \DateTime
     {
-        return $this->creationDate;
+        return new \DateTime($this->creationDate);
     }
 
     public function setCreationDate(\DateTime $creationDate): void
@@ -101,7 +103,7 @@ class Post{
 
     public function getModificationDate(): \DateTime
     {
-        return $this->modificationDate;
+        return new \DateTime($this->modificationDate);
     }
 
     public function setModificationDate(\DateTime $modificationDate): void

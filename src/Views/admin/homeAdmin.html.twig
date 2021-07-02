@@ -1,47 +1,62 @@
-{% extends "layouts/default.html.twig" %}
+{% extends "layouts/admin-default.html.twig" %}
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="/admin/articles">
-                  <span data-feather="home"></span>Tous les articles
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/admin/articles-add">
-                  <span data-feather="file"></span>
-                  Ajouter un article
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/admin/commentaires/validate">
-                  <span data-feather="file"></span>
-                  Commentaire(s) validés
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/admin/commentaires/waiting">
-                  <span data-feather="file"></span>
-                  Commentaire(s) en attente
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Liste des articles</h1>
-            {% for post in posts %}
-                {{ dump(post) }}
-            {% endfor %}
+            {% if session.alert %}
+            {# <div class="alert alert-success" role="alert">
+              This is a primary alert—check it out!
+            </div>
+             #}
+            {% endif %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Titre</th>
+                  <th scope="col">Date de création</th>
+                  <th scope="col">Date de modification</th>
+                  <th scope="col">Auteur</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if posts is not empty %}
+                  
+                  {% for post in posts %}
+                  
+                  <div class="modal fade" id="modalForDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Suppression de l'article</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Cette action est définitive, êtes-vous sûr de vouloir supprimer cette article ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                          <a href="/admin/articles/delete/{{ post.id }}" class="btn btn-danger">Supprimer</a>
+                        </div>
+                      </div>
+                  </div>
+                
+                    <tr>
+                      <td>{{ post.title }}</td>
+                      <td>{{ post.creationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+                      <td>{{ post.modificationDate is null ? '' : post.modificationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+                      <td>Admin</td>
+                      <td>
+                        <a href="/admin/articles/edit/{{ post.id }}" class="btn btn-warning">Editer</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalForDelete">Supprimer</button>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  <p> Aucuns articles pour le moment </p>
+                {% endif %}
+              </tbody>
+            </table>
           </div>
-        </main>
-      </div>
-    </div>
 {% endblock %}
