@@ -1,9 +1,12 @@
 <?php
 
-class Comment {
+namespace App\Entity;
+use Core\Entity;
+
+class Comment extends Entity {
     private ?int $id;
     private string $content;
-    private \Datetime $creationDate;
+    private $creationDate;
     private bool $isValidated;
 
     /* GETTERS / SETTERS */
@@ -43,7 +46,7 @@ class Comment {
 
     public function getCreationDate(): \DateTime
     {
-        return $this->creationDate;
+        return new \DateTime($this->creationDate);
     }
 
     public function setCreationDate(\DateTime $creationDate): void
