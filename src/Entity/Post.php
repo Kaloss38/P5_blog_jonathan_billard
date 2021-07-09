@@ -103,7 +103,6 @@ class Post extends Entity {
 
     public function getModificationDate()
     {
-        // return new \DateTime($this->modificationDate);
         return $this->modificationDate;
     }
 
