@@ -15,7 +15,7 @@ class Comment extends Entity {
     {
         parent::__construct($datas);    
     }
-    
+
     /* GETTERS / SETTERS */
 
     /*
@@ -51,9 +51,9 @@ class Comment extends Entity {
     *
     */
 
-    public function getCreationDate(): \DateTime
+    public function getCreationDate()
     {
-        return new \DateTime($this->creationDate);
+        return $this->creationDate;
     }
 
     public function setCreationDate(\DateTime $creationDate): void
