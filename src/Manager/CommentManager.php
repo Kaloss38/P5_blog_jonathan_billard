@@ -15,7 +15,7 @@
 		public function createComment(Comment $comment, Post $post){
 			//Récupérer utilisateur en session une fois que le système d'authentification sera fait
 			$sql = "
-			INSERT INTO comment(postId, userId, content, creationDate, isValidated) VALUES(:postId, :userId, :content, :creationDate, :isValidated)";
+			INSERT INTO comment(postId, userId, content, creationDate, isValidated, isWaiting, isDisapproved) VALUES(:postId, :userId, :content, :creationDate, :isValidated, :isWaiting, :isDisapproved)";
 			$req = $this->_bdd->prepare($sql);
 
 			$req->bindValue(':postId', $post->getId());
@@ -23,6 +23,8 @@
 			$req->bindValue(':content', $comment->getContent());
 			$req->bindValue(':creationDate', $comment->getCreationDate()->format('Y-m-d H:i:s'));
 			$req->bindValue(':isValidated', 0);
+			$req->bindValue(':isWaiting', 1);
+			$req->bindValue(':isDisapproved', 0);
 			
 			$req->execute();
 		}

@@ -8,7 +8,9 @@ class Comment extends Entity {
     private string $content;
     private $creationDate;
     private bool $isValidated;
-
+    private bool $isWaiting;
+    private bool $isDisapproved;
+    
     /* GETTERS / SETTERS */
 
     /*
@@ -68,6 +70,38 @@ class Comment extends Entity {
     public function setIsValidated($isValidated): void
     {
         $this->isValidated = $isValidated;
+    }
+
+    /*
+    *
+    * WAITING
+    *
+    */
+
+    public function getIsWaiting(): bool
+    {
+        return $this->isWaiting;
+    }
+
+    public function setIsWaiting($isWaiting): void
+    {
+        $this->isWaiting = $isWaiting;
+    }
+
+    /*
+    *
+    * DISAPPROVED
+    *
+    */
+
+    public function getIsDisapproved(): bool
+    {
+        return $this->isDisapproved;
+    }
+
+    public function setIsDisapproved($isDisapproved): void
+    {
+        $this->isDisapproved = $isDisapproved;
     }
 
 }
