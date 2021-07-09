@@ -42,5 +42,73 @@
 
 			return $req->fetchAll();
 		}
+
+		public function getAllValidatedComments()
+		{
+			$sql = "
+			SELECT *, c.id AS commentId, c.content AS commentContent, c.creationDate AS commentCreationDate FROM comment c INNER JOIN user u ON u.id = c.userId INNER JOIN post p ON p.id = c.postId WHERE c.isValidated = 1 ORDER BY c.id DESC";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->execute();
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+
+			return $req->fetchAll();
+		}
 		
+		public function getAllWaitingComments()
+		{
+			$sql = "
+			SELECT *, c.id AS commentId, c.content AS commentContent, c.creationDate AS commentCreationDate FROM comment c INNER JOIN user u ON u.id = c.userId INNER JOIN post p ON p.id = c.postId WHERE c.isWaiting = 1 ORDER BY c.id DESC";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->execute();
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+
+			return $req->fetchAll();
+		}
+
+		public function getAllDisapprovedComments()
+		{
+			$sql = "
+			SELECT *, c.id AS commentId, c.content AS commentContent, c.creationDate AS commentCreationDate FROM comment c INNER JOIN user u ON u.id = c.userId INNER JOIN post p ON p.id = c.postId WHERE c.isDisapproved = 1 ORDER BY c.id DESC";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->execute();
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+
+			return $req->fetchAll();
+		}
+
+		public function validateComment(Comment $comment)
+		{
+			$sql = "
+			UPDATE comment SET isValidated = 1, isWaiting = 0 WHERE id = :id";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->bindValue(':id', $comment->getId());
+
+			$req->execute();
+		}
+
+		public function disapproveComment(Comment $comment)
+		{
+			$sql = "
+			UPDATE comment SET isDisapproved = 1, isWaiting = 0 WHERE id = :id";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->bindValue(':id', $comment->getId());
+
+			$req->execute();
+		}
+
+		public function deleteComment(Comment $comment)
+		{
+			$sql= "
+			DELETE FROM comment WHERE id = :id";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->bindValue(":id", $comment->getId(), \PDO::PARAM_INT);
+
+			$req->execute();
+		}
 	}

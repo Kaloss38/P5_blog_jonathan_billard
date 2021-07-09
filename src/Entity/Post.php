@@ -101,9 +101,9 @@ class Post extends Entity {
     *
     */
 
-    public function getModificationDate(): \DateTime
+    public function getModificationDate()
     {
-        return new \DateTime($this->modificationDate);
+        return $this->modificationDate;
     }
 
     public function setModificationDate(\DateTime $modificationDate): void

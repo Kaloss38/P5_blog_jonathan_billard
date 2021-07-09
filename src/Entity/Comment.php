@@ -11,6 +11,11 @@ class Comment extends Entity {
     private bool $isWaiting;
     private bool $isDisapproved;
     
+    public function __construct(array $datas = [])
+    {
+        parent::__construct($datas);    
+    }
+
     /* GETTERS / SETTERS */
 
     /*
@@ -46,9 +51,9 @@ class Comment extends Entity {
     *
     */
 
-    public function getCreationDate(): \DateTime
+    public function getCreationDate()
     {
-        return new \DateTime($this->creationDate);
+        return $this->creationDate;
     }
 
     public function setCreationDate(\DateTime $creationDate): void

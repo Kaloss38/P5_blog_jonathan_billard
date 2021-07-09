@@ -1,0 +1,44 @@
+{% extends "layouts/admin-default.html.twig" %}
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+          <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Liste des commentaires en attente</h1>
+            {% if session.alert %}
+            {# <div class="alert alert-success" role="alert">
+              This is a primary alert—check it out!
+            </div>
+             #}
+            {% endif %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Commentaire</th>
+                  <th scope="col">Article</th>
+                  <th scope="col">Auteur</th>
+                  <th scope="col">Date de création</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if commentsWaiting is not empty %}
+                  
+                  {% for commentWaiting in commentsWaiting %}
+                    <tr>
+                      <td>{{ commentWaiting.commentContent }}</td>
+                      <td>{{ commentWaiting.title }}</td>
+                      <td>{{ commentWaiting.pseudo }}</td>
+                      <td>{{ commentWaiting.commentCreationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+                      <td>
+                        <a href="/admin/commentaires/validate/{{ commentWaiting.commentId }}" class="btn btn-success">Valider</a>
+                        <a href="/admin/commentaires/desapprove/{{ commentWaiting.commentId }}" class="btn btn-danger">Désapprouver</a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  <p> Aucuns articles pour le moment </p>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+{% endblock %}
