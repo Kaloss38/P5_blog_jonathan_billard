@@ -1,11 +1,16 @@
 <?php
 
-class Comment {
+namespace App\Entity;
+use Core\Entity;
+
+class Comment extends Entity {
     private ?int $id;
     private string $content;
-    private \Datetime $creationDate;
+    private $creationDate;
     private bool $isValidated;
-
+    private bool $isWaiting;
+    private bool $isDisapproved;
+    
     /* GETTERS / SETTERS */
 
     /*
@@ -43,7 +48,7 @@ class Comment {
 
     public function getCreationDate(): \DateTime
     {
-        return $this->creationDate;
+        return new \DateTime($this->creationDate);
     }
 
     public function setCreationDate(\DateTime $creationDate): void
@@ -65,6 +70,38 @@ class Comment {
     public function setIsValidated($isValidated): void
     {
         $this->isValidated = $isValidated;
+    }
+
+    /*
+    *
+    * WAITING
+    *
+    */
+
+    public function getIsWaiting(): bool
+    {
+        return $this->isWaiting;
+    }
+
+    public function setIsWaiting($isWaiting): void
+    {
+        $this->isWaiting = $isWaiting;
+    }
+
+    /*
+    *
+    * DISAPPROVED
+    *
+    */
+
+    public function getIsDisapproved(): bool
+    {
+        return $this->isDisapproved;
+    }
+
+    public function setIsDisapproved($isDisapproved): void
+    {
+        $this->isDisapproved = $isDisapproved;
     }
 
 }

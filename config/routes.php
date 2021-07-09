@@ -39,5 +39,6 @@ Router::get('/news', 'PostController@index')->setName('news');
 
 //------ POST ------//
 Router::get('/news/post/{id}', 'PostController@showPost')->setName('post');
+Router::all('/news/post/{id}/ajout-commentaire', 'CommentController@addComment');
 
 

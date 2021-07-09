@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Core\Controller;
 use App\Manager\PostManager;
+use App\Manager\CommentManager;
 
 class PostController extends Controller{
 
@@ -23,8 +24,12 @@ class PostController extends Controller{
         $postManager = new PostManager();
         $post = $postManager->getById($id);
 
+        $commentManager = new CommentManager();
+        $comments = $commentManager->getCommentsValidatedFromPost($post);
+
         return $this->render('public/post', [
-            'post' => $post
+            'post' => $post,
+            'comments' => $comments
         ]);
     }
 }

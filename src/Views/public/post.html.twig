@@ -10,4 +10,33 @@
         <p class="text-center">{{ post.header }}</p>
         <p class="text-center mt-4 mb-4">{{ post.content|raw }}</p>
     </div>
+    <hr class="mt-2 mb-3"/>
+    <div class="container mt-4">
+        <h2 class="text-center">Commentaires</h2>
+    </div>
+    <div class="container mt-4">
+        <form method="POST" action="/news/post/{{post.id}}/ajout-commentaire" enctype="multipart/form-data">
+            <div class="form-group py-2">
+                <label for="content">Votre commentaire</label>
+                <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre contenu...">
+            </div>
+            <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Envoyer</button>
+        </form>
+    </div>
+    <div class="container mt-4 mb-4">
+        <h2>Liste des commentaires</h2>
+        {% if comments is not empty%}
+            {% for comment in comments %}
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{ comment.pseudo }}</h5>
+                    {{ comment.commentContent}}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+          <p>Aucun commentaire pour le moment, ajoutez-en un !</p>    
+        {% endif %}
+        
+    </div>
 {% endblock %}
