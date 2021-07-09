@@ -11,6 +11,11 @@ class Comment extends Entity {
     private bool $isWaiting;
     private bool $isDisapproved;
     
+    public function __construct(array $datas = [])
+    {
+        parent::__construct($datas);    
+    }
+    
     /* GETTERS / SETTERS */
 
     /*

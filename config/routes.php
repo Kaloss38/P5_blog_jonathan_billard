@@ -29,10 +29,18 @@ Router::get('/admin/commentaires/unvalidate/{id}', 'AdminController@desaproveCom
 
 //comments waiting list page
 Router::get('/admin/commentaires/waiting', 'AdminController@allCommentsWaiting');
-//validate comment waiting
-Router::get('/admin/commentaires/waiting/validate/{id}', 'AdminController@validateCommentWaiting');
-//delete comment waiting list
-Router::get('/admin/commentaires/waiting/delete/{id}', 'AdminController@deleteCommentsWaiting');
+//validate comment 
+Router::get('/admin/commentaires/validate/{id}', 'AdminController@validateComment');
+//desapprove comment
+Router::get('/admin/commentaires/desapprove/{id}', 'AdminController@disapproveComment');
+//delete comment
+// /admin/commentaires/delete/
+Router::get('/admin/commentaires/delete/{id}', 'AdminController@deleteComment');
+
+//comments validate list page
+Router::get('/admin/commentaires/validated', 'AdminController@allCommentsValidated');
+//comments desapprove list page
+Router::get('/admin/commentaires/disapproved', 'AdminController@allCommentsDisapproved');
 
 //------ ACTUALITIES ------//
 Router::get('/news', 'PostController@index')->setName('news');

@@ -22,14 +22,13 @@
 			$this->_bdd = BDD::getInstance($datasource);
 		}
 		
-		//Renvoi un object
+		
 		public function getById($id)
 		{
 			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table . " WHERE id=?");
 			$req->execute(array($id));
 			$req->setFetchMode(\PDO::FETCH_CLASS, $this->_object);
 			return $req->fetch();
-			
 		}
 		
 		public function getAll()

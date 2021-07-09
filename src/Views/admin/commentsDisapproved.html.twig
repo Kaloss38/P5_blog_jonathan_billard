@@ -1,0 +1,61 @@
+{% extends "layouts/admin-default.html.twig" %}
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+          <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Liste des commentaires désapprouvés</h1>
+            {% if session.alert %}
+            {# <div class="alert alert-success" role="alert">
+              This is a primary alert—check it out!
+            </div>
+             #}
+            {% endif %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Commentaire</th>
+                  <th scope="col">Article</th>
+                  <th scope="col">Auteur</th>
+                  <th scope="col">Date de création</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if commentsDisapproved is not empty %}
+                  
+                  {% for commentDisapproved in commentsDisapproved %}
+                    <div class="modal fade" id="modalForDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Suppression de l'article</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Cette action est définitive, êtes-vous sûr de vouloir supprimer ce commentaire ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                          <a href="/admin/commentaires/delete/{{ commentDisapproved.commentId }}" class="btn btn-danger">Supprimer</a>
+                        </div>
+                      </div>
+                  </div>
+
+                    <tr>
+                      <td>{{ commentDisapproved.commentContent }}</td>
+                      <td>{{ commentDisapproved.title }}</td>
+                      <td>{{ commentDisapproved.pseudo }}</td>
+                      <td>{{ commentDisapproved.commentCreationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+                      <td>
+                        <a href="/admin/commentaires/validate/{{ commentDisapproved.commentId }}" class="btn btn-success">Valider</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalForDelete">Supprimer</button>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  <p> Aucuns commentaires pour le moment </p>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use Core\Controller;
 use App\Manager\PostManager;
 use App\Entity\Post;
+use App\Manager\CommentManager;
 
 class AdminController extends Controller{
 
@@ -99,5 +100,61 @@ class AdminController extends Controller{
         }
     }
 
+    public function allCommentsWaiting()
+    {
+        $commentManager = new CommentManager();
+        $commentsWaiting = $commentManager->getAllWaitingComments();
+        
+        return $this->render('admin/commentsWaiting', [
+            'commentsWaiting' => $commentsWaiting
+        ]);
+    }
+
+    public function validateComment($id)
+    {
+        $commentManager = new CommentManager();
+        $commentToValidate = $commentManager->getById($id);
+        $commentManager->validateComment($commentToValidate);
+
+        $this->redirectTo('/admin/commentaires/waiting');
+    }
+
+    public function disapproveComment($id)
+    {
+        $commentManager = new CommentManager();
+        $commentToDisapprove = $commentManager->getById($id);
+        $commentManager->disapproveComment($commentToDisapprove);
+
+        $this->redirectTo('/admin/commentaires/waiting');
+    }
+
+    public function deleteComment($id)
+    {
+        $commentManager = new CommentManager();
+        $commentToDelete = $commentManager->getById($id);
+        $commentManager->deleteComment($commentToDelete);
+
+        $this->redirectTo('/admin/commentaires/waiting'); 
+    }
+
+    public function allCommentsDisapproved()
+    {
+        $commentManager = new CommentManager();
+        $commentsDisapproved = $commentManager->getAllDisapprovedComments();
+        
+        return $this->render('admin/commentsDisapproved', [
+            'commentsDisapproved' => $commentsDisapproved
+        ]);
+    }
+
+    public function allCommentsValidated()
+    {
+        $commentManager = new CommentManager();
+        $commentsValidated = $commentManager->getAllValidatedComments();
+        
+        return $this->render('admin/commentsValidated', [
+            'commentsValidated' => $commentsValidated
+        ]); 
+    }
 
 }
