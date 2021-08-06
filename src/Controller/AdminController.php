@@ -6,6 +6,8 @@ use Core\Controller;
 use App\Manager\PostManager;
 use App\Entity\Post;
 use App\Manager\CommentManager;
+use App\Session\PHPSession;
+use App\Session\FlashService;
 
 class AdminController extends Controller{
 
@@ -42,7 +44,9 @@ class AdminController extends Controller{
             $postManager = new PostManager();
             $postManager->createPost($newPost, $pictureLink);
 
-            $this->addFlash('success', 'Votre acticle à bien été créé.');
+            $flash = new FlashService();
+            $flash->success("L'article a bien été créé");
+
             $this->redirectTo('/admin/articles');
         }
     }
@@ -51,8 +55,10 @@ class AdminController extends Controller{
     {
        $postManager = new PostManager();
        $postManager->deletePost($id);
+
+       $flash = new FlashService();
+       $flash->success("L'article a bien été supprimé");
        
-       $this->addFlash('success', 'Votre acticle à bien été supprimé.');
        $this->redirectTo('/admin/articles');
     }
 
@@ -68,7 +74,9 @@ class AdminController extends Controller{
             
             $this->updatePost($post);
 
-            $this->addFlash('success', 'Votre acticle à bien été modifié.');
+            $flash = new FlashService();
+            $flash->success("L'article a bien été modifié");
+
             $this->redirectTo('/admin/articles');
         }
 

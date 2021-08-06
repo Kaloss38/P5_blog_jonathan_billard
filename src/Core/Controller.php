@@ -6,6 +6,7 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use \Twig\Extension\DebugExtension;
 Use Core\Response\Response;
+use Core\TwigExtensions\FlashExtension;
 
 class Controller
 {
@@ -21,7 +22,7 @@ class Controller
         ]);
         
         $this->twig->addExtension(new DebugExtension()); 
-        
+        $this->twig->addExtension(new FlashExtension()); 
         
     }
 
@@ -118,14 +119,6 @@ class Controller
 
     public function getCurrentTime(){
         return new \DateTime("now");
-    }
-
-    public function addFlash(string $type, string $msg)
-    {
-        $_SESSION['alert'] = [
-            "type" => $type,
-            "msg" => $msg
-        ];
     }
 
 }
