@@ -51,9 +51,9 @@ class Comment extends Entity {
     *
     */
 
-    public function getCreationDate()
+    public function getCreationDate(): \DateTime
     {
-        return $this->creationDate;
+        return new \DateTime($this->creationDate);
     }
 
     public function setCreationDate(\DateTime $creationDate): void

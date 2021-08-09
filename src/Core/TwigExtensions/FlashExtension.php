@@ -2,7 +2,7 @@
 
 namespace Core\TwigExtensions;
 
-use App\Session\FlashService;
+use Core\Session\FlashService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

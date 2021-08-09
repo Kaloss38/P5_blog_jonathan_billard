@@ -7,7 +7,7 @@ use App\Manager\PostManager;
 use App\Entity\Post;
 use App\Manager\CommentManager;
 use App\Session\PHPSession;
-use App\Session\FlashService;
+use Core\Session\FlashService;
 
 class AdminController extends Controller{
 
@@ -124,7 +124,10 @@ class AdminController extends Controller{
         $commentToValidate = $commentManager->getById($id);
         $commentManager->validateComment($commentToValidate);
 
-        $this->redirectTo('/admin/commentaires/waiting');
+        $flash = new FlashService();
+        $flash->success("Le commentaire à bien été validé");
+
+        $this->redirectTo('/admin/commentaires/validated');
     }
 
     public function disapproveComment($id)
@@ -133,7 +136,10 @@ class AdminController extends Controller{
         $commentToDisapprove = $commentManager->getById($id);
         $commentManager->disapproveComment($commentToDisapprove);
 
-        $this->redirectTo('/admin/commentaires/waiting');
+        $flash = new FlashService();
+        $flash->success("Le commentaire à bien été désapprouvé");
+
+        $this->redirectTo('/admin/commentaires/disapproved');
     }
 
     public function deleteComment($id)
@@ -141,6 +147,9 @@ class AdminController extends Controller{
         $commentManager = new CommentManager();
         $commentToDelete = $commentManager->getById($id);
         $commentManager->deleteComment($commentToDelete);
+
+        $flash = new FlashService();
+        $flash->success("Le commentaire à bien été supprimé");
 
         $this->redirectTo('/admin/commentaires/waiting'); 
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Session;
+namespace Core\Session;
 
-use App\Session\PHPSession;
+use Core\Session\PHPSession;
 
 class FlashService {
 
