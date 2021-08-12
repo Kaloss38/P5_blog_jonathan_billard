@@ -4,11 +4,10 @@
 {% block body %}
           <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Liste des commentaires désapprouvés</h1>
-            {% if session.alert %}
-            {# <div class="alert alert-success" role="alert">
-              This is a primary alert—check it out!
-            </div>
-             #}
+            {% if flash('success') %}
+              <div class="alert alert-success" role="alert">
+                {{ flash('success') }}
+              </div>
             {% endif %}
             <table class="table">
               <thead>

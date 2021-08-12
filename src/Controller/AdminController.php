@@ -42,7 +42,8 @@ class AdminController extends Controller{
             $postManager = new PostManager();
             $postManager->createPost($newPost, $pictureLink);
 
-            $this->addFlash('success', 'Votre acticle à bien été créé.');
+            $this->flash()->success("L'article a bien été créé");
+
             $this->redirectTo('/admin/articles');
         }
     }
@@ -51,8 +52,9 @@ class AdminController extends Controller{
     {
        $postManager = new PostManager();
        $postManager->deletePost($id);
+
+       $this->flash()->success("L'article a bien été supprimé");
        
-       $this->addFlash('success', 'Votre acticle à bien été supprimé.');
        $this->redirectTo('/admin/articles');
     }
 
@@ -68,7 +70,8 @@ class AdminController extends Controller{
             
             $this->updatePost($post);
 
-            $this->addFlash('success', 'Votre acticle à bien été modifié.');
+            $this->flash()->success("L'article a bien été modifié");
+
             $this->redirectTo('/admin/articles');
         }
 
@@ -116,7 +119,9 @@ class AdminController extends Controller{
         $commentToValidate = $commentManager->getById($id);
         $commentManager->validateComment($commentToValidate);
 
-        $this->redirectTo('/admin/commentaires/waiting');
+        $this->flash()->success("Le commentaire à bien été validé");
+
+        $this->redirectTo('/admin/commentaires/validated');
     }
 
     public function disapproveComment($id)
@@ -125,7 +130,9 @@ class AdminController extends Controller{
         $commentToDisapprove = $commentManager->getById($id);
         $commentManager->disapproveComment($commentToDisapprove);
 
-        $this->redirectTo('/admin/commentaires/waiting');
+        $this->flash()->success("Le commentaire à bien été désapprouvé");
+
+        $this->redirectTo('/admin/commentaires/disapproved');
     }
 
     public function deleteComment($id)
@@ -133,6 +140,8 @@ class AdminController extends Controller{
         $commentManager = new CommentManager();
         $commentToDelete = $commentManager->getById($id);
         $commentManager->deleteComment($commentToDelete);
+
+        $this->flash()->success("Le commentaire à bien été supprimé");
 
         $this->redirectTo('/admin/commentaires/waiting'); 
     }

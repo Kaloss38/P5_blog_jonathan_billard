@@ -25,6 +25,11 @@
     </div>
     <div class="container mt-4 mb-4">
         <h2>Liste des commentaires</h2>
+        {% if flash('success') %}
+              <div class="alert alert-success" role="alert">
+                {{ flash('success') }}
+              </div>
+            {% endif %}
         {% if comments is not empty%}
             {% for comment in comments %}
             <div class="card mt-2">

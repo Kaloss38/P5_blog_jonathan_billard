@@ -18,6 +18,8 @@ class CommentController extends Controller{
             $newComment = new Comment($_POST);
             $commentManager = new CommentManager();
             $commentManager->createComment($newComment, $post);
+
+            $this->flash()->success("Commentaire envoyé et en attente de modération");
             
             $this->redirectTo('/news/post/'. $id .'/');
         }
