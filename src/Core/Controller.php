@@ -7,6 +7,8 @@ use Twig\Environment;
 use \Twig\Extension\DebugExtension;
 Use Core\Response\Response;
 use Core\TwigExtensions\FlashExtension;
+use Core\Session\PHPSession;
+use Core\Session\FlashService;
 
 class Controller
 {
@@ -121,4 +123,11 @@ class Controller
         return new \DateTime("now");
     }
 
+    public function session(){
+        return new PHPSession();
+    }
+
+    public function flash(){
+        return new FlashService();
+    }
 }

@@ -6,8 +6,6 @@ use Core\Controller;
 use App\Manager\PostManager;
 use App\Entity\Post;
 use App\Manager\CommentManager;
-use App\Session\PHPSession;
-use Core\Session\FlashService;
 
 class AdminController extends Controller{
 
@@ -44,8 +42,7 @@ class AdminController extends Controller{
             $postManager = new PostManager();
             $postManager->createPost($newPost, $pictureLink);
 
-            $flash = new FlashService();
-            $flash->success("L'article a bien été créé");
+            $this->flash()->success("L'article a bien été créé");
 
             $this->redirectTo('/admin/articles');
         }
@@ -56,8 +53,7 @@ class AdminController extends Controller{
        $postManager = new PostManager();
        $postManager->deletePost($id);
 
-       $flash = new FlashService();
-       $flash->success("L'article a bien été supprimé");
+       $this->flash()->success("L'article a bien été supprimé");
        
        $this->redirectTo('/admin/articles');
     }
@@ -74,8 +70,7 @@ class AdminController extends Controller{
             
             $this->updatePost($post);
 
-            $flash = new FlashService();
-            $flash->success("L'article a bien été modifié");
+            $this->flash()->success("L'article a bien été modifié");
 
             $this->redirectTo('/admin/articles');
         }
@@ -124,8 +119,7 @@ class AdminController extends Controller{
         $commentToValidate = $commentManager->getById($id);
         $commentManager->validateComment($commentToValidate);
 
-        $flash = new FlashService();
-        $flash->success("Le commentaire à bien été validé");
+        $this->flash()->success("Le commentaire à bien été validé");
 
         $this->redirectTo('/admin/commentaires/validated');
     }
@@ -136,8 +130,7 @@ class AdminController extends Controller{
         $commentToDisapprove = $commentManager->getById($id);
         $commentManager->disapproveComment($commentToDisapprove);
 
-        $flash = new FlashService();
-        $flash->success("Le commentaire à bien été désapprouvé");
+        $this->flash()->success("Le commentaire à bien été désapprouvé");
 
         $this->redirectTo('/admin/commentaires/disapproved');
     }
@@ -148,8 +141,7 @@ class AdminController extends Controller{
         $commentToDelete = $commentManager->getById($id);
         $commentManager->deleteComment($commentToDelete);
 
-        $flash = new FlashService();
-        $flash->success("Le commentaire à bien été supprimé");
+        $this->flash()->success("Le commentaire à bien été supprimé");
 
         $this->redirectTo('/admin/commentaires/waiting'); 
     }
