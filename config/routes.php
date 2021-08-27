@@ -49,4 +49,19 @@ Router::get('/news', 'PostController@index')->setName('news');
 Router::get('/news/post/{id}', 'PostController@showPost')->setName('post');
 Router::all('/news/post/{id}/ajout-commentaire', 'CommentController@addComment');
 
+//------ AUTH ------//
+
+//login
+Router::all('/login', 'UserController@login');
+//subscribe
+Router::all('/subscribe', 'UserController@subscribe');
+//Validate user
+Router::get('/validate/{token}/{pseudo}', 'UserController@validate');
+//Password Forget
+Router::all('/forget-password', 'UserController@forgetPassword');
+//Password reset
+Router::all('/reset-password/{token}', 'UserController@resetPassword');
+
+
+
 

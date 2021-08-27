@@ -6,9 +6,12 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use \Twig\Extension\DebugExtension;
 Use Core\Response\Response;
+use Core\Service\PHPmailerService;
 use Core\TwigExtensions\FlashExtension;
 use Core\Session\PHPSession;
 use Core\Session\FlashService;
+use Core\TwigExtensions\SessionExtension;
+use Ramsey\Uuid\Uuid;
 
 class Controller
 {
@@ -25,7 +28,7 @@ class Controller
         
         $this->twig->addExtension(new DebugExtension()); 
         $this->twig->addExtension(new FlashExtension()); 
-        
+        $this->twig->addExtension(new SessionExtension()); 
     }
 
     //Twig - Render Method
@@ -123,11 +126,49 @@ class Controller
         return new \DateTime("now");
     }
 
+    /*
+    *
+    * use session Get current time
+    *
+    */
+
     public function session(){
         return new PHPSession();
     }
 
+    /*
+    *
+    * use flash
+    *
+    */
+
     public function flash(){
         return new FlashService();
+    }
+
+    /*
+    *
+    * generate token for users
+    *
+    */
+
+    public function generateToken()
+	{
+		$uuid = Uuid::uuid4();
+
+		return $uuid->toString();
+	}
+
+    /*
+    *
+    * send mails
+    *
+    */
+
+    public function mail()
+    {
+        $mailer = new PHPmailerService();
+
+        return $mailer;
     }
 }

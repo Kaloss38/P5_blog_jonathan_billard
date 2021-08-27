@@ -1,6 +1,9 @@
 <?php
 
-class User {
+namespace App\Entity;
+use Core\Entity;
+
+class User extends Entity {
     private ?int $id;
     private string $pseudo;
     private string $firstname;
@@ -10,6 +13,11 @@ class User {
     private bool $isAdmin;
     private string $password;
     private string $token;
+
+    public function __construct(array $datas = [])
+    {
+        parent::__construct($datas);    
+    }
     
     
     /* GETTERS / SETTERS */

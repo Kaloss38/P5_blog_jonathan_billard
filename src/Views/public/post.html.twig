@@ -14,15 +14,23 @@
     <div class="container mt-4">
         <h2 class="text-center">Commentaires</h2>
     </div>
-    <div class="container mt-4">
-        <form method="POST" action="/news/post/{{post.id}}/ajout-commentaire" enctype="multipart/form-data">
-            <div class="form-group py-2">
-                <label for="content">Votre commentaire</label>
-                <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre contenu...">
-            </div>
-            <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Envoyer</button>
-        </form>
-    </div>
+    {% set user = session('user') %}
+    {% if user %}
+        <div class="container mt-4">
+            <form method="POST" action="/news/post/{{post.id}}/ajout-commentaire" enctype="multipart/form-data">
+                <div class="form-group py-2">
+                    <label for="content">{{ user.pseudo }}</label>
+                    <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre commentaire...">
+                </div>
+                <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Envoyer</button>
+            </form>
+        </div>
+    {% else %}
+        <div class="container mt-4">
+            <p>Pour ajouter un commentaire, <a href="/login">connectez-vous</a> sinon <a href="/login">inscrivez-vous</a></p> 
+        </div>                        
+    {% endif %}
+    
     <div class="container mt-4 mb-4">
         <h2>Liste des commentaires</h2>
         {% if flash('success') %}
