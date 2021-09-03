@@ -8,7 +8,9 @@ use Core\Controller;
 
 use App\Manager\UserManager;
 
-use Core\Service\PHPmailerTemplates;
+use App\Service\PHPmailerTemplates;
+
+use Core\Cookie\PHPCookie;
 
 class UserController extends Controller{
     
@@ -25,10 +27,21 @@ class UserController extends Controller{
                 $this->session()->set('user', [
                     "id" => $user->getId(),
                     "pseudo" => $user->getPseudo(),
+                    "isAdmin" => $user->getIsAdmin(),
                     "token" => $token
                 ]);
 
+                if($_POST['rememberMe']){
+                    $cookie = new PHPCookie();
+                    $cookie->set('idUser', password_hash($user->getPseudo(), PASSWORD_BCRYPT));
+                    $cookie->set('token', $user->getToken());
+                    $this->cookie()->set('isConnected', "1");
+                }
+
                 $this->redirectTo('/');
+            }
+            else{
+                $this->flash()->error("Une erreur est survenue, merci de vérifier vos informations");
             }
         }
 
@@ -44,11 +57,13 @@ class UserController extends Controller{
             $userCountPseudo = count($userManager->getUserByPseudo($newUser));
 
             //If user mail not present in database and mail is valid
-            if($userCountPseudo != 0){
-                $this->flash()->error("Ce pseudo est déjà utilisé");
-                $this->redirectTo('/subscribe');    
-            }
-            else if( $userCountMail == 0 && filter_var($newUser->getEmail(), FILTER_VALIDATE_EMAIL)){
+            // if($userCountPseudo != 0){
+            //     $this->flash()->error("Ce pseudo est déjà utilisé");
+            //     $this->redirectTo('/subscribe');    
+            // }
+
+            if( $userCountMail == 0 && filter_var($newUser->getEmail(), FILTER_VALIDATE_EMAIL)){
+                
                 if($newUser->getPassword() === $_POST['confirmPassword'])
                 {
                     $token = $this->generateToken();
@@ -60,7 +75,7 @@ class UserController extends Controller{
                     $this->mail()->sendMail($newUser, $template);
                     $this->flash()->success("Inscription prise en compte, vérifiez vos mails afin de valider votre compte");
 
-                    $this->redirectTo('/');
+                    $this->redirectTo('/login');
                 }
                 else {
                     $this->flash()->error("Vos mots de passe ne correspondent pas");   
@@ -81,7 +96,8 @@ class UserController extends Controller{
         $user = $userManager->getUserByToken($token);
 
         if(!$user->getIsActive()){
-            $userManager->validateUser($user);
+            $newToken = $this->generateToken();
+            $userManager->validateUser($user, $newToken);
             $this->flash()->success("Votre compte à bien été validé, connectez-vous !");
             $this->redirectTo('/login');
         }
@@ -124,7 +140,7 @@ class UserController extends Controller{
             if($_POST['password'] === $_POST['confirmPassword'])
             {
                 $userManager->updatePassword($_POST['password'], $token);
-                $userManager->updateUserToken($user, "done");
+                $userManager->updateUserToken($user, "");
 
                 $this->flash()->success("Votre mot de passe a été réinitialisé, connectez-vous !");
                 $this->redirectTo('/login');
@@ -138,6 +154,13 @@ class UserController extends Controller{
         return $this->render('auth/reset-password', [
             "token" => $token
         ]);
+    }
+
+    public function logout()
+    {
+        $this->session()->delete('user');
+        $this->cookie()->set('isConnected', "0");
+        $this->redirectTo('/');
     }
 
 }

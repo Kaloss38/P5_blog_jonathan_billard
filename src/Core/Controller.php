@@ -6,9 +6,10 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use \Twig\Extension\DebugExtension;
 Use Core\Response\Response;
-use Core\Service\PHPmailerService;
+use App\Service\PHPmailerService;
 use Core\TwigExtensions\FlashExtension;
 use Core\Session\PHPSession;
+use Core\Cookie\PHPCookie;
 use Core\Session\FlashService;
 use Core\TwigExtensions\SessionExtension;
 use Ramsey\Uuid\Uuid;
@@ -128,12 +129,22 @@ class Controller
 
     /*
     *
-    * use session Get current time
+    * use session
     *
     */
 
     public function session(){
         return new PHPSession();
+    }
+
+    /*
+    *
+    * use cookie
+    *
+    */
+
+    public function cookie(){
+        return new PHPCookie();
     }
 
     /*

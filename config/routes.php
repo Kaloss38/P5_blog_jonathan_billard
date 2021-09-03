@@ -61,6 +61,8 @@ Router::get('/validate/{token}/{pseudo}', 'UserController@validate');
 Router::all('/forget-password', 'UserController@forgetPassword');
 //Password reset
 Router::all('/reset-password/{token}', 'UserController@resetPassword');
+//Logout
+Router::all('/logout', 'UserController@logout');
 
 
 

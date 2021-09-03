@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Service;
+namespace App\Service;
 
 use App\Entity\User;
 use PHPMailer\PHPMailer\PHPMailer;

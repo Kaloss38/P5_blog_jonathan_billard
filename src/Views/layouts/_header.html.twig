@@ -19,10 +19,19 @@
                         </ul>
                         {% set user = session('user') %}
                         {% if user %}
-                            <ul class="navbar-nav my-2 my-lg-0"> 
-                                <li class="nav-item">
-                                    Bonjour, {{ user.pseudo }}
-                                </li>
+                            <ul class="navbar-nav my-2 my-lg-0">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Bonjour, {{ user.pseudo }}
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        {% if user.isAdmin %}
+                                            <a class="dropdown-item" href="#">Administration</a>
+                                        {% endif %}
+                                        <a class="dropdown-item" href="#">Voir mon profil</a>
+                                        <a class="dropdown-item" href="/logout">Se déconnecter</a>
+                                    </div>
+                                </div>
                             </ul> 
                         {% else %}
                             <ul class="navbar-nav my-2 my-lg-0">

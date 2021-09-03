@@ -98,14 +98,14 @@ use App\Manager\BaseManager;
 			$req->execute();
 		}
 
-		public function validateUser(User $user)
+		public function validateUser(User $user, $newToken)
 		{
 			$sql = "
 			UPDATE user SET isActive = :isActive, token = :token WHERE email = :email";
 			$req = $this->_bdd->prepare($sql);
 
 			$req->bindValue(':isActive', 1);
-			$req->bindValue(':token', 'done');
+			$req->bindValue(':token', $newToken);
 			$req->bindValue(':email', $user->getEmail());
 
 			$req->execute();	
