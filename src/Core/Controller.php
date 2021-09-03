@@ -10,6 +10,7 @@ use App\Service\PHPmailerService;
 use Core\TwigExtensions\FlashExtension;
 use Core\Session\PHPSession;
 use Core\Cookie\PHPCookie;
+use Core\Security\Roles;
 use Core\Session\FlashService;
 use Core\TwigExtensions\SessionExtension;
 use Ramsey\Uuid\Uuid;
@@ -179,5 +180,23 @@ class Controller
     public function mail()
     {
         return new PHPmailerService();
+    }
+
+    /*
+    *
+    * ROLES
+    *
+    */
+
+    public function roles()
+    {
+        return new Roles();
+    }
+
+    public function csrf()
+    {
+        if(!($_POST['csrf'] == $this->session()->get('user')['token'])){
+            $this->redirectTo('/');
+        }
     }
 }

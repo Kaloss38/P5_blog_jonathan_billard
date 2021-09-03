@@ -11,6 +11,7 @@ class AdminController extends Controller{
 
     public function index()
     {
+        $this->roles()->isAdmin();
 
         $postManager = new PostManager();
         $posts = $postManager->getAll();
@@ -20,12 +21,16 @@ class AdminController extends Controller{
         ]);
     }
 
-    public function addPost(){
+    public function addPost()
+    {
+        $this->roles()->isAdmin();
 
         return $this->render('/admin/addPost', []);
     }
 
     public function savePost(){
+        $this->roles()->isAdmin();
+
         //set image to save in local
         $file = $_FILES['thumbnail'];
 
@@ -39,8 +44,10 @@ class AdminController extends Controller{
 
         //check form for issubmit
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
+            $this->csrf();
             $postManager = new PostManager();
-            $postManager->createPost($newPost, $pictureLink);
+            $userId = $this->session()->get('user')['id'];
+            $postManager->createPost($newPost, $pictureLink, $userId);
 
             $this->flash()->success("L'article a bien été créé");
 
@@ -50,6 +57,8 @@ class AdminController extends Controller{
 
     public function deletePost($id)
     {
+       $this->roles()->isAdmin();
+
        $postManager = new PostManager();
        $postManager->deletePost($id);
 
@@ -60,10 +69,13 @@ class AdminController extends Controller{
 
     public function editPost($id)
     {
+        $this->roles()->isAdmin();
+
         $postManager = new PostManager();
         $post = $postManager->getById($id);
 
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
+            $this->csrf();
             $post->setTitle($_POST['title']);
             $post->setHeader($_POST['header']);
             $post->setContent($_POST['content']);
@@ -82,6 +94,8 @@ class AdminController extends Controller{
 
     public function updatePost(Post $post)
     {
+        $this->roles()->isAdmin();
+
         $file = $_FILES['thumbnail']['size'];
         
         if($file == 0)
@@ -105,6 +119,8 @@ class AdminController extends Controller{
 
     public function allCommentsWaiting()
     {
+        $this->roles()->isAdmin();
+
         $commentManager = new CommentManager();
         $commentsWaiting = $commentManager->getAllWaitingComments();
         
@@ -115,6 +131,8 @@ class AdminController extends Controller{
 
     public function validateComment($id)
     {
+        $this->roles()->isAdmin();
+
         $commentManager = new CommentManager();
         $commentToValidate = $commentManager->getById($id);
         $commentManager->validateComment($commentToValidate);
@@ -126,6 +144,8 @@ class AdminController extends Controller{
 
     public function disapproveComment($id)
     {
+        $this->roles()->isAdmin();
+
         $commentManager = new CommentManager();
         $commentToDisapprove = $commentManager->getById($id);
         $commentManager->disapproveComment($commentToDisapprove);
@@ -137,6 +157,8 @@ class AdminController extends Controller{
 
     public function deleteComment($id)
     {
+        $this->roles()->isAdmin();
+
         $commentManager = new CommentManager();
         $commentToDelete = $commentManager->getById($id);
         $commentManager->deleteComment($commentToDelete);
@@ -148,6 +170,8 @@ class AdminController extends Controller{
 
     public function allCommentsDisapproved()
     {
+        $this->roles()->isAdmin();
+
         $commentManager = new CommentManager();
         $commentsDisapproved = $commentManager->getAllDisapprovedComments();
         
@@ -158,6 +182,8 @@ class AdminController extends Controller{
 
     public function allCommentsValidated()
     {
+        $this->roles()->isAdmin();
+        
         $commentManager = new CommentManager();
         $commentsValidated = $commentManager->getAllValidatedComments();
         

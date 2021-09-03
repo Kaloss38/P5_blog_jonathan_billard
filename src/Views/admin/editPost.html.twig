@@ -25,7 +25,10 @@
                         <label for="content">Votre article</label>
                         <input name="content" type="textarea" class="form-control" id="content" value="{{ post.content }}" placeholder="Votre contenu...">
                     </div>
-                    
+                    {% set user = session('user') %}
+                    {% if user %}
+                        <input name="csrf" type="hidden" value="{{ user.token }}">
+                    {% endif %}
                     <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Enregistrer</button>
                 </form>
                 

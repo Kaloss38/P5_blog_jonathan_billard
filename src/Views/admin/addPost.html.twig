@@ -21,6 +21,10 @@
                         <input type="file" name="thumbnail" class="custom-file-input" id="thumbnail">
                         <label class="custom-file-label" for="thumbnail">Choissisez une image à la une</label>
                     </div>
+                    {% set user = session('user') %}
+                    {% if user %}
+                        <input name="csrf" type="hidden" value="{{ user.token }}">
+                    {% endif %}
                     <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Enregistrer</button>
                 </form>
                 

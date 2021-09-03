@@ -21,6 +21,7 @@
                 <div class="form-group py-2">
                     <label for="content">{{ user.pseudo }}</label>
                     <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre commentaire...">
+                    <input name="csrf" type="hidden" value="{{ user.token }}">
                 </div>
                 <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Envoyer</button>
             </form>
