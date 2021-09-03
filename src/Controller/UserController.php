@@ -17,6 +17,10 @@ class UserController extends Controller{
 
     public function login()
     {
+        if($this->session()->get('user') != null){
+            $this->redirectTo('/');
+        }
+
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $userManager = new UserManager();
             $user = $userManager->getUserFromEmail($_POST['email']);
@@ -50,6 +54,10 @@ class UserController extends Controller{
 
     public function subscribe()
     {
+        if($this->session()->get('user') != null){
+            $this->redirectTo('/');
+        }
+        
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $newUser = new User($_POST);
             $userManager = new UserManager();

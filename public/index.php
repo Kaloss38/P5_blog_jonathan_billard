@@ -15,6 +15,7 @@ define("ROOT_DIR", dirname(__DIR__));
 //Starting session
 session_start();
 
+//Autolog if user remember
 $cookieAuth = new CookieAuth();
 $cookieAuth->AuthWithCookie();
 

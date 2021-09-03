@@ -15,6 +15,7 @@ class CommentController extends Controller{
         $post = $postManager->getById($id);
 
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
+            $this->csrf();
             $newComment = new Comment($_POST);
             $commentManager = new CommentManager();
             $commentManager->createComment($newComment, $post);
