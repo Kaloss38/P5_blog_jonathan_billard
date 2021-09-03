@@ -12,14 +12,14 @@
 			parent::__construct("comment", "App\Entity\Comment");	
 		}
 
-		public function createComment(Comment $comment, Post $post){
+		public function createComment(Comment $comment, Post $post, int $userId){
 			//Récupérer utilisateur en session une fois que le système d'authentification sera fait
 			$sql = "
 			INSERT INTO comment(postId, userId, content, creationDate, isValidated, isWaiting, isDisapproved) VALUES(:postId, :userId, :content, :creationDate, :isValidated, :isWaiting, :isDisapproved)";
 			$req = $this->_bdd->prepare($sql);
 
 			$req->bindValue(':postId', $post->getId());
-			$req->bindValue(':userId', 1);
+			$req->bindValue(':userId', $userId);
 			$req->bindValue(':content', $comment->getContent());
 			$req->bindValue(':creationDate', $comment->getCreationDate()->format('Y-m-d H:i:s'));
 			$req->bindValue(':isValidated', 0);

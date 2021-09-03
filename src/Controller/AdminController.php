@@ -46,7 +46,8 @@ class AdminController extends Controller{
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $this->csrf();
             $postManager = new PostManager();
-            $postManager->createPost($newPost, $pictureLink);
+            $userId = $this->session()->get('user')['id'];
+            $postManager->createPost($newPost, $pictureLink, $userId);
 
             $this->flash()->success("L'article a bien été créé");
 

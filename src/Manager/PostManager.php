@@ -12,12 +12,12 @@
 			parent::__construct("post","App\Entity\Post");	
 		}
 
-		public function createPost(Post $post, string $pictureLink){
+		public function createPost(Post $post, string $pictureLink, int $userId){
 			$sql = "
 			INSERT INTO post(userId, title, header, content, creationDate, thumbnail) VALUES(:userId, :title, :header, :content, :creationDate, :thumbnail)";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':userId', 1);
+			$req->bindValue(':userId', $userId);
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
