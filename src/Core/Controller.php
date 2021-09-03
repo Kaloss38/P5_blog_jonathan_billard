@@ -178,8 +178,6 @@ class Controller
 
     public function mail()
     {
-        $mailer = new PHPmailerService();
-
-        return $mailer;
+        return new PHPmailerService();
     }
 }

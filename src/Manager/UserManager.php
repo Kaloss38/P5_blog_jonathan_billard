@@ -7,9 +7,14 @@ use App\Manager\BaseManager;
 
 	class UserManager extends BaseManager
 	{
+
+		private const USERENTITY = "App\Entity\User";
+		private const EMAILPARAM = ":email";
+		private const TOKENPARAM = ":token";
+
 		public function __construct()
 		{
-			parent::__construct("user", "App\Entity\User");	
+			parent::__construct("user", self::USERENTITY);	
 		}
 
 		public function getUsersFromEmail(User $user)
@@ -18,10 +23,10 @@ use App\Manager\BaseManager;
 			SELECT * FROM user WHERE email = :email";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':email', $user->getEmail());
+			$req->bindValue(self::EMAILPARAM, $user->getEmail());
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\User");
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::USERENTITY);
 
 			return $req->fetchAll();
 		}
@@ -32,10 +37,10 @@ use App\Manager\BaseManager;
 			SELECT * FROM user WHERE email = :email";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':email', $email);
+			$req->bindValue(self::EMAILPARAM, $email);
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS, "App\Entity\User");
+			$req->setFetchMode(\PDO::FETCH_CLASS, self::USERENTITY);
 
 			return $req->fetch();
 		}
@@ -46,10 +51,10 @@ use App\Manager\BaseManager;
 			SELECT * FROM user WHERE token = :token";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':token', $token);
+			$req->bindValue(self::TOKENPARAM, $token);
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS, "App\Entity\User");
+			$req->setFetchMode(\PDO::FETCH_CLASS, self::USERENTITY);
 
 			return $req->fetch();
 		}
@@ -60,8 +65,8 @@ use App\Manager\BaseManager;
 			UPDATE user SET token = :token WHERE email = :email";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':token', $token);
-			$req->bindValue(':email', $user->getEmail());
+			$req->bindValue(self::TOKENPARAM, $token);
+			$req->bindValue(self::EMAILPARAM, $user->getEmail());
 
 			$req->execute();	
 		}
@@ -75,7 +80,7 @@ use App\Manager\BaseManager;
 			$req->bindValue(':pseudo', $user->getPseudo());
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\User");
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::USERENTITY);
 
 			return $req->fetchAll();
 		}
@@ -89,11 +94,11 @@ use App\Manager\BaseManager;
 			$req->bindValue(':pseudo', $user->getPseudo());
 			$req->bindValue(':firstname', $user->getFirstname());
 			$req->bindValue(':lastname', $user->getLastname());
-			$req->bindValue(':email', $user->getEmail());
+			$req->bindValue(self::EMAILPARAM, $user->getEmail());
 			$req->bindValue(':isActive', 0);
 			$req->bindValue(':isAdmin', 0);
 			$req->bindValue(':password', password_hash($user->getPassword(), PASSWORD_BCRYPT));
-			$req->bindValue(':token', $token);
+			$req->bindValue(self::TOKENPARAM, $token);
 			
 			$req->execute();
 		}
@@ -105,8 +110,8 @@ use App\Manager\BaseManager;
 			$req = $this->_bdd->prepare($sql);
 
 			$req->bindValue(':isActive', 1);
-			$req->bindValue(':token', $newToken);
-			$req->bindValue(':email', $user->getEmail());
+			$req->bindValue(self::TOKENPARAM, $newToken);
+			$req->bindValue(self::EMAILPARAM, $user->getEmail());
 
 			$req->execute();	
 		}
@@ -118,7 +123,7 @@ use App\Manager\BaseManager;
 			$req = $this->_bdd->prepare($sql);
 
 			$req->bindValue(':password', password_hash($password, PASSWORD_BCRYPT));
-			$req->bindValue(':token', $token);
+			$req->bindValue(self::TOKENPARAM, $token);
 
 			$req->execute();		
 		}

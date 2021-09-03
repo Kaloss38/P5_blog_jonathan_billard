@@ -36,7 +36,7 @@ class PHPCookie {
             time() + 60 * 60 * 24 * 30,
             $this->path,
             $this->domain,
-            false,
+            true,
             true
         );
     }

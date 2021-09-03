@@ -13,7 +13,7 @@ use App\Service\PHPmailerTemplates;
 use Core\Cookie\PHPCookie;
 
 class UserController extends Controller{
-    
+    private const LOGINURL = "/login";
 
     public function login()
     {
@@ -57,10 +57,10 @@ class UserController extends Controller{
             $userCountPseudo = count($userManager->getUserByPseudo($newUser));
 
             //If user mail not present in database and mail is valid
-            // if($userCountPseudo != 0){
-            //     $this->flash()->error("Ce pseudo est déjà utilisé");
-            //     $this->redirectTo('/subscribe');    
-            // }
+            if($userCountPseudo != 0){
+                $this->flash()->error("Ce pseudo est déjà utilisé");
+                $this->redirectTo('/subscribe');    
+            }
 
             if( $userCountMail == 0 && filter_var($newUser->getEmail(), FILTER_VALIDATE_EMAIL)){
                 
@@ -75,7 +75,7 @@ class UserController extends Controller{
                     $this->mail()->sendMail($newUser, $template);
                     $this->flash()->success("Inscription prise en compte, vérifiez vos mails afin de valider votre compte");
 
-                    $this->redirectTo('/login');
+                    $this->redirectTo(self::LOGINURL);
                 }
                 else {
                     $this->flash()->error("Vos mots de passe ne correspondent pas");   
@@ -99,11 +99,11 @@ class UserController extends Controller{
             $newToken = $this->generateToken();
             $userManager->validateUser($user, $newToken);
             $this->flash()->success("Votre compte à bien été validé, connectez-vous !");
-            $this->redirectTo('/login');
+            $this->redirectTo(self::LOGINURL);
         }
         else{
             $this->flash()->error("Une erreur est survenue, votre compte est déjà validé");
-            $this->redirectTo('/login');
+            $this->redirectTo(self::LOGINURL);
         }
     }
 
@@ -143,7 +143,7 @@ class UserController extends Controller{
                 $userManager->updateUserToken($user, "");
 
                 $this->flash()->success("Votre mot de passe a été réinitialisé, connectez-vous !");
-                $this->redirectTo('/login');
+                $this->redirectTo(self::LOGINURL);
             }
             else{
                 $this->flash()->error("Vos mots de passe ne correspondent pas");    
