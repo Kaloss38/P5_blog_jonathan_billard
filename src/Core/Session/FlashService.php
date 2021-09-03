@@ -24,6 +24,13 @@ class FlashService {
         $this->session->set($this->sessionKey, $flash);
     }
 
+    public function error(string $message)
+    {
+        $flash = $this->session->get($this->sessionKey, []);
+        $flash['error'] = $message;
+        $this->session->set($this->sessionKey, $flash);
+    }
+
     public function get(string $type): ?string
     {
         if(is_null($this->messages)){

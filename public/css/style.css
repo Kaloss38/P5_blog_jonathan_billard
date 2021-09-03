@@ -95,6 +95,12 @@ footer .quick-links {
   padding: 2rem 0;
 }
 
-/* footer */
-
 /*# sourceMappingURL=style.css.map */
+
+main{
+  min-height: 32em;
+}
+
+.admin-body{
+  min-height: 32em !important; 
+}

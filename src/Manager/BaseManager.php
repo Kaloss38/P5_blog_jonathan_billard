@@ -5,6 +5,7 @@
 	use Core\BDD;
 	use App\Handler\PropertyNotFoundException;
 	
+	
 	class BaseManager
 	{
 		private $_table;
@@ -101,4 +102,7 @@
 				throw new PropertyNotFoundException($obj,"id");	
 			}
 		}
+
+		
+		
 	}
