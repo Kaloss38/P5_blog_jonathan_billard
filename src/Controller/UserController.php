@@ -36,9 +36,14 @@ class UserController extends Controller{
                 ]);
 
                 if($_POST['rememberMe']){
-                    $cookie = new PHPCookie();
-                    $cookie->set('idUser', password_hash($user->getPseudo(), PASSWORD_BCRYPT));
-                    $cookie->set('token', $user->getToken());
+                    $configFile = file_get_contents(CONF_DIR . '/config.json');
+                    $config = json_decode($configFile);
+
+                    $saltStart = $config->security->saltStart;
+                    $saltEnd = $config->security->saltEnd;
+                    
+                    $this->cookie()->set('idUser', $saltStart. password_hash($user->getPseudo(), PASSWORD_BCRYPT). $saltEnd);
+                    $this->cookie()->set('token', $saltStart. $user->getToken() . $saltEnd);
                     $this->cookie()->set('isConnected', "1");
                 }
 

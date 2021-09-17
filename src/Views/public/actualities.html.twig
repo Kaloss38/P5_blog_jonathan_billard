@@ -3,18 +3,33 @@
 
 {% block body %}
     <h1 class="text-center">Liste des articles</h1>
-    <div class="container d-flex justify-content-between mt-4">
-    {% for post in posts %}
-        {# {{ dump(post) }} #}
-        <div class="card mb-4" style="width: 18rem;">
-            <img class="card-img-top" src="../../../{{ post.thumbnail }}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text">{{ post.header|slice(0, 35) }}...</p>
-                <p class="card-text"> créé le {{ post.creation_date|date('d/m/Y') }}</p>
-                <a href="/news/post/{{ post.id }}" class="btn btn-primary">Lire l'article</a>
+    <div class="container d-flex justify-content-evenly mt-4">
+        {% for post in posts %}
+            {# {{ dump(post) }} #}
+            <div class="card mb-4" style="width: 18rem;">
+                <img class="card-img-top" src="../../../{{ post.thumbnail }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.header|slice(0, 35) }}...</p>
+                    <p class="card-text"> créé le {{ post.creation_date|date('d/m/Y') }}</p>
+                    <a href="/news/post/{{ post.id }}" class="btn btn-primary">Lire l'article</a>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+        
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if currentPage > 1 %}
+            <li class="page-item"><a class="page-link" href="/news/{{ currentPage - 1 }}">Page précedente</a></li>
+            {% endif %}
+            {% for i in 1.. totalPages %}
+                {% set isActive = i == currentPage ? "active" : ""%}
+                <li class="page-item {{ isActive }}"><a class="page-link" href="/news/{{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            {% if currentPage < totalPages %}
+                    <li class="page-item"><a class="page-link" href="/news/{{ currentPage + 1}}">Page suivante</a></li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}

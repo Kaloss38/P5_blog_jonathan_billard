@@ -36,7 +36,13 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                          <a href="/admin/articles/delete/{{ post.id }}" class="btn btn-danger">Supprimer</a>
+                          <form method="POST" action="/admin/articles/delete/{{ post.id }}" enctype="multipart/form-data">
+                              {% set user = session('user') %}
+                              {% if user %}
+                                <button type="submit" value="submit" name="submit" class="btn btn-danger">Supprimer</button>
+                                <input name="csrf" type="hidden" value="{{ user.token }}">
+                              {% endif %}
+                          </form>
                         </div>
                       </div>
                   </div>
@@ -58,4 +64,18 @@
               </tbody>
             </table>
           </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if currentPage > 1 %}
+                <li class="page-item"><a class="page-link" href="/admin/articles/{{ currentPage - 1 }}">Page précedente</a></li>
+                {% endif %}
+                {% for i in 1.. totalPages %}
+                    {% set isActive = i == currentPage ? "active" : ""%}
+                    <li class="page-item {{ isActive }}"><a class="page-link" href="/admin/articles/{{ i }}">{{ i }}</a></li>
+                {% endfor %}
+                {% if currentPage < totalPages %}
+                        <li class="page-item"><a class="page-link" href="/admin/articles/{{ currentPage + 1}}">Page suivante</a></li>
+                {% endif %}
+            </ul>
+        </nav>
 {% endblock %}

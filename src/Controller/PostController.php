@@ -5,17 +5,21 @@ namespace App\Controller;
 use Core\Controller;
 use App\Manager\PostManager;
 use App\Manager\CommentManager;
+use App\Service\Pagination;
 
 class PostController extends Controller{
 
 
-    public function index()
+    public function index($currentPage)
     {
-        $postManager = new PostManager();
-        $posts = $postManager->getAll();
+        $paginate = new Pagination();
+
+        $posts = $paginate->paginatePosts($currentPage, 5);
         
         return $this->render('public/actualities', [
-            'posts' => $posts
+            'posts' => $posts['posts'],
+            'totalPages' => $posts['totalPages'],
+            'currentPage' => $posts['currentPage']
         ]);
     }
 

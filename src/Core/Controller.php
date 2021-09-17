@@ -195,7 +195,7 @@ class Controller
 
     public function csrf()
     {
-        if(!($_POST['csrf'] == $this->session()->get('user')['token'])){
+        if($_POST['csrf'] != $this->session()->get('user')['token']){
             $this->redirectTo('/');
         }
     }

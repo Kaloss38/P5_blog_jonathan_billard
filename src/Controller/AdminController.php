@@ -6,18 +6,19 @@ use Core\Controller;
 use App\Manager\PostManager;
 use App\Entity\Post;
 use App\Manager\CommentManager;
+use App\Service\Pagination;
 
 class AdminController extends Controller{
 
-    public function index()
+    public function index($currentPage)
     {
-        $this->roles()->isAdmin();
-
-        $postManager = new PostManager();
-        $posts = $postManager->getAll();
+        $paginate = new Pagination();
+        $posts = $paginate->paginatePosts($currentPage, 5);
 
         return $this->render('admin/homeAdmin', [
-            'posts' => $posts
+            'posts' => $posts['posts'],
+            'totalPages' => $posts['totalPages'],
+            'currentPage' => $posts['currentPage']
         ]);
     }
 
@@ -51,18 +52,19 @@ class AdminController extends Controller{
 
             $this->flash()->success("L'article a bien été créé");
 
-            $this->redirectTo('/admin/articles');
+            $this->redirectTo('/admin/articles/1');
         }
     }
 
     public function deletePost($id)
     {
        $this->roles()->isAdmin();
-
-       $postManager = new PostManager();
-       $postManager->deletePost($id);
-
-       $this->flash()->success("L'article a bien été supprimé");
+       if( $this->isSubmit('submit') && $this->isValidated($_POST)){
+           $this->csrf();
+           $postManager = new PostManager();
+           $postManager->deletePost($id); 
+           $this->flash()->success("L'article a bien été supprimé");
+       }
        
        $this->redirectTo('/admin/articles');
     }
