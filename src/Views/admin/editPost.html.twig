@@ -5,7 +5,7 @@
 
           <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Modifier l'article "{{ post.title }}"</h1>
-                <form method="POST" action="/admin/articles/edit/{{ post.id }}" enctype="multipart/form-data">
+                <form method="POST" action="/admin/articles/edit/{{ post.slug }}" enctype="multipart/form-data">
                     <div class="d-flex">
                       <img src="../../../{{ post.thumbnail }}" class="col-2 py-2">
                       <div class="p-4 align-self-center">

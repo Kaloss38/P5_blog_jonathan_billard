@@ -13,7 +13,6 @@
 		}
 
 		public function createComment(Comment $comment, Post $post, int $userId){
-			//Récupérer utilisateur en session une fois que le système d'authentification sera fait
 			$sql = "
 			INSERT INTO comment(postId, userId, content, creationDate, isValidated, isWaiting, isDisapproved) VALUES(:postId, :userId, :content, :creationDate, :isValidated, :isWaiting, :isDisapproved)";
 			$req = $this->_bdd->prepare($sql);

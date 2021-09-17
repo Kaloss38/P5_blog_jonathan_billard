@@ -10,6 +10,8 @@ use App\Service\Pagination;
 
 class AdminController extends Controller{
 
+    private const HOMEADMINURL = '/admin/articles/1';
+
     public function index($currentPage)
     {
         $paginate = new Pagination();
@@ -53,7 +55,7 @@ class AdminController extends Controller{
 
             $this->flash()->success("L'article a bien été créé");
 
-            $this->redirectTo('/admin/articles/1');
+            $this->redirectTo(self::HOMEADMINURL);
         }
     }
 
@@ -67,7 +69,7 @@ class AdminController extends Controller{
            $this->flash()->success("L'article a bien été supprimé");
        }
        
-       $this->redirectTo('/admin/articles/1');
+       $this->redirectTo(self::HOMEADMINURL);
     }
 
     public function editPost($slug)
@@ -76,7 +78,7 @@ class AdminController extends Controller{
 
         $postManager = new PostManager();
         $post = $postManager->getBySlug($slug);
-
+        
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $this->csrf();
             $post->setTitle($_POST['title']);
@@ -89,7 +91,7 @@ class AdminController extends Controller{
 
             $this->flash()->success("L'article a bien été modifié");
 
-            $this->redirectTo('/admin/articles/1');
+            $this->redirectTo(self::HOMEADMINURL);
         }
 
         return $this->render('admin/editPost', [

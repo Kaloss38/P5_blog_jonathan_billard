@@ -17,7 +17,7 @@
     {% set user = session('user') %}
     {% if user %}
         <div class="container mt-4">
-            <form method="POST" action="/news/post/{{post.id}}/ajout-commentaire" enctype="multipart/form-data">
+            <form method="POST" action="/news/post/{{post.slug}}/ajout-commentaire" enctype="multipart/form-data">
                 <div class="form-group py-2">
                     <label for="content">{{ user.pseudo }}</label>
                     <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre commentaire...">

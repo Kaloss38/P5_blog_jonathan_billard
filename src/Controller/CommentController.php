@@ -9,10 +9,10 @@ use App\Entity\Comment;
 
 class CommentController extends Controller{
 
-    public function addComment($id){
+    public function addComment($slug){
         //Récupérer utilisateur en session une fois que le système d'authentification sera fait
         $postManager = new PostManager();
-        $post = $postManager->getById($id);
+        $post = $postManager->getBySlug($slug);
 
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $this->csrf();
@@ -24,7 +24,7 @@ class CommentController extends Controller{
 
             $this->flash()->success("Commentaire envoyé et en attente de modération");
             
-            $this->redirectTo('/news/post/'. $id .'/');
+            $this->redirectTo('/news/post/'. $slug .'/');
         }
     }
 }

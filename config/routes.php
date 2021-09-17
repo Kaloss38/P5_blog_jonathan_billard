@@ -49,7 +49,7 @@ Router::get('/news/{currentPage}', 'PostController@index')->setName('news');
 Router::get('/news/post/{slug}', 'PostController@showPost')->setName('post');
 
 //------ User add comment ------//
-Router::all('/news/post/{id}/ajout-commentaire', 'CommentController@addComment');
+Router::all('/news/post/{slug}/ajout-commentaire', 'CommentController@addComment');
 
 //------ AUTH ------//
 

@@ -12,12 +12,14 @@
 			parent::__construct("post","App\Entity\Post");	
 		}
 
+		private const SLUGPARAM = ":slug";
+
 		public function getBySlug(string $slug)
 		{
 			$sql = "
 			SELECT * FROM post WHERE slug = :slug";
 			$req = $this->_bdd->prepare($sql);
-			$req->bindValue(':slug', $slug);
+			$req->bindValue(self::SLUGPARAM, $slug);
 			$req->execute();	
 			$req->setFetchMode(\PDO::FETCH_CLASS, "App\Entity\Post");
 			return $req->fetch();
@@ -35,7 +37,7 @@
 			$req->bindValue(':content', $post->getContent());
 			$req->bindValue(':creationDate', $post->getCreationDate()->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $pictureLink);
-			$req->bindValue(':slug', $slug);
+			$req->bindValue(self::SLUGPARAM, $slug);
 			
 			$req->execute();
 		}
@@ -56,7 +58,7 @@
 			$req->bindValue(':modificationDate', $modificationDateUpdate->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $img);
 			$req->bindValue(':id', $post->getId());
-			$req->bindValue(':slug', $post->getSlug());
+			$req->bindValue(self::SLUGPARAM, $post->getSlug());
 
 			$req->execute();
 		}
@@ -67,7 +69,7 @@
 			DELETE FROM post WHERE slug = :slug";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(":slug", $slug);
+			$req->bindValue(self::SLUGPARAM, $slug);
 
 			$req->execute();
 		}
