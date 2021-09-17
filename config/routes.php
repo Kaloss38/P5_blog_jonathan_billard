@@ -12,7 +12,7 @@ Router::get('/', 'HomeController@home')->setName('home');
 //------ ADMIN ------//
 
 //home - all posts
-Router::get('/admin/articles', 'AdminController@index')->setName('adminAllPosts');
+Router::get('/admin/articles/{currentPage}', 'AdminController@index')->setName('adminAllPosts');
 //add post view
 Router::get('/admin/articles-add', 'AdminController@addPost')->setName('adminAddPost');
 //save post view
@@ -20,7 +20,7 @@ Router::post('/admin/articles-save', 'AdminController@savePost')->setName('admin
 //update post
 Router::all('/admin/articles/edit/{id}', 'AdminController@editPost');
 //delete post
-Router::get('/admin/articles/delete/{id}', 'AdminController@deletePost')->setName('adminDeletePost');
+Router::all('/admin/articles/delete/{id}', 'AdminController@deletePost');
 
 //all comments page
 Router::get('/admin/commentaires/validate', 'AdminController@allComments');
@@ -43,10 +43,12 @@ Router::get('/admin/commentaires/validated', 'AdminController@allCommentsValidat
 Router::get('/admin/commentaires/disapproved', 'AdminController@allCommentsDisapproved');
 
 //------ ACTUALITIES ------//
-Router::get('/news', 'PostController@index')->setName('news');
+Router::get('/news/{currentPage}', 'PostController@index')->setName('news');
 
 //------ POST ------//
 Router::get('/news/post/{id}', 'PostController@showPost')->setName('post');
+
+//------ User add comment ------//
 Router::all('/news/post/{id}/ajout-commentaire', 'CommentController@addComment');
 
 //------ AUTH ------//

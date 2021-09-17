@@ -32,9 +32,9 @@
 			return $req->fetch();
 		}
 		
-		public function getAll()
+		public function getAll($param = "")
 		{
-			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table. " ORDER BY id DESC");
+			$req = $this->_bdd->prepare("SELECT * FROM " . $this->_table. " ORDER BY id DESC " . $param);
 			$req->execute();
 			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $this->_object);
 			return $req->fetchAll();

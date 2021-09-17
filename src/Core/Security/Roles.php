@@ -18,13 +18,12 @@ class Roles extends Controller {
 
     public function isAdmin()
     {
-        if($this->session()->get('user') === NULL)
-        {
-            $this->redirectTo(self::LOGINURL);
+        if(isset($this->session()->get('user')['isAdmin']) && $this->session()->get('user')['isAdmin'] === true){
+            return true ;
         }
-        elseif(!$this->session()->get('user')['isAdmin'])
-        {
+        else{
             $this->redirectTo(self::LOGINURL);
+
         }
     }
 }
