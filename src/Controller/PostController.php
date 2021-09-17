@@ -14,7 +14,7 @@ class PostController extends Controller{
     {
         $paginate = new Pagination();
 
-        $posts = $paginate->paginatePosts($currentPage, 5);
+        $posts = $paginate->paginatePosts($currentPage, 3);
         
         return $this->render('public/actualities', [
             'posts' => $posts['posts'],
@@ -23,11 +23,11 @@ class PostController extends Controller{
         ]);
     }
 
-    public function showPost($id)
+    public function showPost($slug)
     {
         $postManager = new PostManager();
-        $post = $postManager->getById($id);
-
+        $post = $postManager->getBySlug($slug);
+        
         $commentManager = new CommentManager();
         $comments = $commentManager->getCommentsValidatedFromPost($post);
 

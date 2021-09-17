@@ -36,7 +36,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                          <form method="POST" action="/admin/articles/delete/{{ post.id }}" enctype="multipart/form-data">
+                          <form method="POST" action="/admin/articles/delete/{{ post.slug }}" enctype="multipart/form-data">
                               {% set user = session('user') %}
                               {% if user %}
                                 <button type="submit" value="submit" name="submit" class="btn btn-danger">Supprimer</button>
@@ -53,7 +53,7 @@
                       <td>{{ post.modificationDate is null ? '' : post.modificationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
                       <td>Admin</td>
                       <td>
-                        <a href="/admin/articles/edit/{{ post.id }}" class="btn btn-warning">Editer</a>
+                        <a href="/admin/articles/edit/{{ post.slug }}" class="btn btn-warning">Editer</a>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalForDelete">Supprimer</button>
                       </td>
                     </tr>

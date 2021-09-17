@@ -12,6 +12,7 @@ class Post extends Entity {
     private $creationDate;
     private $modificationDate;
     private string $thumbnail;
+    private string $slug;
 
     public function __construct(array $datas = [])
     {
@@ -125,6 +126,22 @@ class Post extends Entity {
     public function setThumbnail(string $thumbnail): void
     {
         $this->thumbnail = $thumbnail;
+    }
+
+    /*
+    *
+    * TITLE
+    *
+    */
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 
 }

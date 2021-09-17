@@ -14,6 +14,7 @@ use Core\Security\Roles;
 use Core\Session\FlashService;
 use Core\TwigExtensions\SessionExtension;
 use Ramsey\Uuid\Uuid;
+use Cocur\Slugify\Slugify;
 
 class Controller
 {
@@ -193,10 +194,24 @@ class Controller
         return new Roles();
     }
 
+    /*
+    *
+    * csrf security
+    *
+    */
+
     public function csrf()
     {
         if($_POST['csrf'] != $this->session()->get('user')['token']){
             $this->redirectTo('/');
         }
+    }
+
+    /* Slugify string */ 
+
+    public function slugify(string $string)
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($string);
     }
 }

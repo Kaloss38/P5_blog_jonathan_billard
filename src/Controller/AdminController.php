@@ -10,6 +10,8 @@ use App\Service\Pagination;
 
 class AdminController extends Controller{
 
+    private const HOMEADMINURL = '/admin/articles/1';
+
     public function index($currentPage)
     {
         $paginate = new Pagination();
@@ -26,7 +28,7 @@ class AdminController extends Controller{
     {
         $this->roles()->isAdmin();
 
-        return $this->render('/admin/addPost', []);
+        return $this->render('/admin/addPost');
     }
 
     public function savePost(){
@@ -48,37 +50,40 @@ class AdminController extends Controller{
             $this->csrf();
             $postManager = new PostManager();
             $userId = $this->session()->get('user')['id'];
-            $postManager->createPost($newPost, $pictureLink, $userId);
+            $slug = $this->slugify($newPost->getTitle());
+            $postManager->createPost($newPost, $pictureLink, $userId, $slug);
 
             $this->flash()->success("L'article a bien été créé");
 
-            $this->redirectTo('/admin/articles/1');
+            $this->redirectTo(self::HOMEADMINURL);
         }
     }
 
-    public function deletePost($id)
+    public function deletePost($slug)
     {
        $this->roles()->isAdmin();
        if( $this->isSubmit('submit') && $this->isValidated($_POST)){
            $this->csrf();
            $postManager = new PostManager();
-           $postManager->deletePost($id); 
+           $postManager->deletePost($slug); 
            $this->flash()->success("L'article a bien été supprimé");
        }
        
-       $this->redirectTo('/admin/articles');
+       $this->redirectTo(self::HOMEADMINURL);
     }
 
-    public function editPost($id)
+    public function editPost($slug)
     {
         $this->roles()->isAdmin();
 
         $postManager = new PostManager();
-        $post = $postManager->getById($id);
-
+        $post = $postManager->getBySlug($slug);
+        
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $this->csrf();
             $post->setTitle($_POST['title']);
+            $slugTitle = $this->slugify($post->getTitle());
+            $post->setSlug($slugTitle);
             $post->setHeader($_POST['header']);
             $post->setContent($_POST['content']);
             
@@ -86,7 +91,7 @@ class AdminController extends Controller{
 
             $this->flash()->success("L'article a bien été modifié");
 
-            $this->redirectTo('/admin/articles');
+            $this->redirectTo(self::HOMEADMINURL);
         }
 
         return $this->render('admin/editPost', [
