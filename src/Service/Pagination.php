@@ -6,10 +6,6 @@ use App\Manager\PostManager;
 
 class Pagination{
 
-    private function paginate($currentPage, $limitPerPage, $dataArray){
-           
-    }
-
     public function paginatePosts($currentPage, $limitPerPage)
     {
         $postManager = new PostManager();
@@ -23,6 +19,7 @@ class Pagination{
         else{
             $currentPage = 1;
         }
+        
         $start = ($currentPage-1)*$limitPerPage;
         $posts = $postManager->getAll('LIMIT '.$start.','.$limitPerPage);
 

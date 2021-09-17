@@ -36,8 +36,8 @@ class UserController extends Controller{
                 ]);
 
                 if($_POST['rememberMe']){
-                    $configFile = file_get_contents(CONF_DIR . '/config.json');;
-                    $config = json_decode($configFile);;
+                    $configFile = file_get_contents(CONF_DIR . '/config.json');
+                    $config = json_decode($configFile);
 
                     $saltStart = $config->security->saltStart;
                     $saltEnd = $config->security->saltEnd;
