@@ -12,7 +12,7 @@
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ post.header|slice(0, 35) }}...</p>
                     <p class="card-text"> créé le {{ post.creation_date|date('d/m/Y') }}</p>
-                    <a href="/news/post/{{ post.id }}" class="btn btn-primary">Lire l'article</a>
+                    <a href="/news/post/{{ post.slug }}" class="btn btn-primary">Lire l'article</a>
                 </div>
             </div>
         {% endfor %}

@@ -12,9 +12,21 @@
 			parent::__construct("post","App\Entity\Post");	
 		}
 
-		public function createPost(Post $post, string $pictureLink, int $userId){
+		public function getBySlug(string $slug)
+		{
 			$sql = "
-			INSERT INTO post(userId, title, header, content, creationDate, thumbnail) VALUES(:userId, :title, :header, :content, :creationDate, :thumbnail)";
+			SELECT * FROM post WHERE slug = :slug";
+			$req = $this->_bdd->prepare($sql);
+			$req->bindValue(':slug', $slug);
+			$req->execute();	
+			$req->setFetchMode(\PDO::FETCH_CLASS, "App\Entity\Post");
+			return $req->fetch();
+		
+		}
+
+		public function createPost(Post $post, string $pictureLink, int $userId, string $slug){
+			$sql = "
+			INSERT INTO post(userId, title, header, content, creationDate, thumbnail, slug) VALUES(:userId, :title, :header, :content, :creationDate, :thumbnail, :slug)";
 			$req = $this->_bdd->prepare($sql);
 
 			$req->bindValue(':userId', $userId);
@@ -23,6 +35,7 @@
 			$req->bindValue(':content', $post->getContent());
 			$req->bindValue(':creationDate', $post->getCreationDate()->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $pictureLink);
+			$req->bindValue(':slug', $slug);
 			
 			$req->execute();
 		}
@@ -30,7 +43,7 @@
 		public function updatePost(Post $post, string $img)
 		{
 			$sql = "
-			UPDATE post SET userId = :userId, title = :title, header = :header, content = :content, creationDate=:creationDate, modificationDate = :modificationDate, thumbnail = :thumbnail WHERE id = :id";
+			UPDATE post SET userId = :userId, title = :title, header = :header, content = :content, creationDate=:creationDate, modificationDate = :modificationDate, thumbnail = :thumbnail, slug = :slug WHERE id = :id";
 			$req = $this->_bdd->prepare($sql);
 
 			$modificationDateUpdate = new \DateTime("now");
@@ -43,17 +56,18 @@
 			$req->bindValue(':modificationDate', $modificationDateUpdate->format('Y-m-d H:i:s'));
 			$req->bindValue(':thumbnail', $img);
 			$req->bindValue(':id', $post->getId());
+			$req->bindValue(':slug', $post->getSlug());
 
 			$req->execute();
 		}
 
-		public function deletePost($id)
+		public function deletePost($slug)
 		{
 			$sql= "
-			DELETE FROM post WHERE id = :id";
+			DELETE FROM post WHERE slug = :slug";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(":id", $id, \PDO::PARAM_INT);
+			$req->bindValue(":slug", $slug);
 
 			$req->execute();
 		}
