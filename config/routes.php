@@ -3,8 +3,6 @@
 
 use Core\Router;
 use Pecee\Http\Request;
-use Pecee\SimpleRouter\Handlers\IExceptionHandler;
-use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
  
 Router::setDefaultNamespace('App\Controller');
 
@@ -79,14 +77,12 @@ Router::get('/not-found', 'ErrorController@notFound');
 Router::get('/forbidden', 'ErrorController@notFound');
 
 Router::error(function(Request $request,\Exception $exception) {
-
-    switch($exception->getCode()) {
-        // Page not found
-        case 404:
-            response()->redirect('/not-found');
-        // Forbidden
-        case 403:
-            response()->redirect('/forbidden');
+    $codeException = $exception->getCode();
+    if($codeException === 404 ) {
+        response()->redirect('/not-found');
+    }
+    elseif($codeException === 403){
+        response()->redirect('/forbidden');
     }
     
 });
