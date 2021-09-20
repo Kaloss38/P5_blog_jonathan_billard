@@ -2,6 +2,9 @@
 
 
 use Core\Router;
+use Pecee\Http\Request;
+use Pecee\SimpleRouter\Handlers\IExceptionHandler;
+use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
  
 Router::setDefaultNamespace('App\Controller');
 
@@ -66,6 +69,25 @@ Router::all('/reset-password/{token}', 'UserController@resetPassword');
 //Logout
 Router::all('/logout', 'UserController@logout');
 
+//------ USER ------//
+Router::get('/user/{pseudo}', 'UserController@viewProfil');
+Router::all('/user/{pseudo}/updatePseudo', 'UserController@updatePseudo');
+Router::all('/user/{pseudo}/updatePassword', 'UserController@updatePassword');
 
+//------ ERRORS ------//
+Router::get('/not-found', 'ErrorController@notFound');
+Router::get('/forbidden', 'ErrorController@notFound');
 
+Router::error(function(Request $request,\Exception $exception) {
+
+    switch($exception->getCode()) {
+        // Page not found
+        case 404:
+            response()->redirect('/not-found');
+        // Forbidden
+        case 403:
+            response()->redirect('/forbidden');
+    }
+    
+});
 

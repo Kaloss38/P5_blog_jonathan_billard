@@ -25,7 +25,7 @@
                                         {% if user.isAdmin %}
                                             <a class="dropdown-item" href="/admin/articles/1">Administration</a>
                                         {% endif %}
-                                        <a class="dropdown-item" href="#">Voir mon profil</a>
+                                        <a class="dropdown-item" href="/user/{{user.pseudo}}">Mon compte</a>
                                         <a class="dropdown-item" href="/logout">Se déconnecter</a>
                                     </div>
                                 </div>

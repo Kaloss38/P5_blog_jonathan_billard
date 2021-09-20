@@ -104,3 +104,7 @@ main{
 .admin-body{
   min-height: 32em !important; 
 }
+
+.button-comments{
+  margin-left: 2em !important;
+}
