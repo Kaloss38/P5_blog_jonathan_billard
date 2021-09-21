@@ -95,16 +95,14 @@ footer .quick-links {
   padding: 2rem 0;
 }
 
+#section-presentation {
+  padding: 2em;
+  background-color: #4e5052;
+}
+
+#portrait {
+  width: 10em;
+  border: 5px solid white;
+}
+
 /*# sourceMappingURL=style.css.map */
-
-main{
-  min-height: 32em;
-}
-
-.admin-body{
-  min-height: 32em !important; 
-}
-
-.button-comments{
-  margin-left: 2em !important;
-}

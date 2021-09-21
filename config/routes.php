@@ -9,7 +9,7 @@ Router::setDefaultNamespace('App\Controller');
 //------ HOME -----//
 
 Router::get('/', 'HomeController@home')->setName('home');
-
+Router::post('/send-message', 'HomeController@sendMessage');
 //------ ADMIN ------//
 
 //home - all posts
@@ -83,6 +83,9 @@ Router::error(function(Request $request,\Exception $exception) {
     }
     elseif($codeException === 403){
         response()->redirect('/forbidden');
+    }
+    else{
+        $request->setRewriteCallback('ErrorController@notFound');
     }
     
 });
