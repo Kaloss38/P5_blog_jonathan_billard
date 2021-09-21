@@ -73,8 +73,11 @@ Router::all('/user/{pseudo}/updatePseudo', 'UserController@updatePseudo');
 Router::all('/user/{pseudo}/updatePassword', 'UserController@updatePassword');
 
 //------ ERRORS ------//
-Router::get('/not-found', 'ErrorController@notFound');
-Router::get('/forbidden', 'ErrorController@notFound');
+$controllerNotFound = 'ErrorController@notFound';
+
+Router::get('/not-found', $controllerNotFound);
+Router::get('/forbidden', $controllerNotFound);
+
 
 Router::error(function(Request $request,\Exception $exception) {
     $codeException = $exception->getCode();

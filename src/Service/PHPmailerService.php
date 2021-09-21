@@ -53,7 +53,7 @@ class PHPmailerService {
         $mail->Port = $infosConfig->port;
 
         $mail->setFrom($infosConfig->fromMail, $infosConfig->fromName);
-        $mail->addAddress('jb.grphdesigner@gmail.com');
+        $mail->addAddress($infosConfig->username);
 
         $mail->isHTML(true);
 
