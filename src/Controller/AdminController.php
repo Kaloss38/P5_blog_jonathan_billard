@@ -6,6 +6,7 @@ use Core\Controller;
 use App\Manager\PostManager;
 use App\Entity\Post;
 use App\Manager\CommentManager;
+use App\Manager\UserManager;
 use App\Service\Pagination;
 
 class AdminController extends Controller{
@@ -50,8 +51,11 @@ class AdminController extends Controller{
             $this->csrf();
             $postManager = new PostManager();
             $userId = $this->session()->get('user')['id'];
+
+            $userManager = new UserManager();
+            $author = $userManager->getById($userId);
             $slug = $this->slugify($newPost->getTitle());
-            $postManager->createPost($newPost, $pictureLink, $userId, $slug);
+            $postManager->createPost($newPost, $pictureLink, $author, $slug);
 
             $this->flash()->success("L'article a bien été créé");
 
@@ -104,11 +108,16 @@ class AdminController extends Controller{
         $this->roles()->isAdmin();
 
         $file = $_FILES['thumbnail']['size'];
+
+        $userId = $this->session()->get('user')['id'];
+
+        $userManager = new UserManager();
+        $author = $userManager->getById($userId);
         
         if($file == 0)
         {
             $postManager = new PostManager();
-            $postManager->updatePost($post, $post->getThumbnail());
+            $postManager->updatePost($post, $author, $post->getThumbnail());
             
         }
         else 
@@ -119,8 +128,9 @@ class AdminController extends Controller{
             $this->savePicture($newfile, $currentTimeFormat);
             $pictureLink = $this->searchPicture($currentTimeFormat);
             
+            
             $postManager = new PostManager();
-            $postManager->updatePost($post, $pictureLink);  
+            $postManager->updatePost($post, $author, $pictureLink);  
         }
     }
 
