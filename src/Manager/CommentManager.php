@@ -5,6 +5,8 @@
     use App\Manager\BaseManager;
 	use App\Entity\Post;
 	use App\Entity\Comment;
+	use App\Entity\User;
+
 	class CommentManager extends BaseManager
 	{
 		public function __construct()
@@ -71,6 +73,20 @@
 			$sql = "
 			SELECT *, c.id AS commentId, c.content AS commentContent, c.creationDate AS commentCreationDate FROM comment c INNER JOIN user u ON u.id = c.userId INNER JOIN post p ON p.id = c.postId WHERE c.isDisapproved = 1 ORDER BY c.id DESC";
 			$req = $this->_bdd->prepare($sql);
+
+			$req->execute();
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+
+			return $req->fetchAll();
+		}
+
+		public function getCommentsValidatedFromUser(User $user)
+		{
+			$sql = "
+			SELECT *, c.content AS commentContent FROM comment c INNER JOIN user u ON u.id = c.userId INNER JOIN post p ON p.id = c.postId WHERE c.userId = :id AND c.isValidated = 1";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->bindValue(':id', $user->getId());
 
 			$req->execute();
 			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");

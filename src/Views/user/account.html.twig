@@ -1,0 +1,61 @@
+{% extends "layouts/default.html.twig" %}
+{% block title %} Mon compte {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center display-1">Mon compte</h1>
+        {% if flash('success') %}
+                <div class="alert alert-success" role="alert">
+                    {{ flash('success') }}
+                </div>
+            {% elseif flash('error') %}
+                <div class="alert alert-danger" role="alert">
+                    {{ flash('error') }}
+                </div>    
+        {% endif %}
+        <section class="border p-3 mt-5">
+            <h3>Modifier mon pseudo</h2>
+            
+            <form method="POST" action="/user/{{pseudo}}/updatePseudo" enctype="multipart/form-data" role="form" class="d-flex mt-3">
+                <input type="text" name="newPseudo" class="form-control mb-2 mr-sm-2" id="newPseudo" placeholder="{{pseudo}}">
+
+                <button type="submit" value="submit" name="submit" class="btn btn-primary mb-2">Modifier</button>
+            </form>
+        </section>
+        <section class="border p-3 mt-5">
+            <h3>Modifier mon mot de passe</h2>
+            <form method="POST" action="/user/{{pseudo}}/updatePassword" enctype="multipart/form-data" role="form">
+                <div class="form-group mt-2">
+                    <label for="currentPassword">Votre mot de passe actuel</label>
+                    <input name= "currentPassword" type="password" class="form-control" id="currentPassword" placeholder="Votre mot de passe">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="newPassword">Votre nouveau mot de passe</label>
+                    <input name= "newPassword" type="password" class="form-control" id="newPassword" placeholder="Votre nouveau mot de passe">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="confirmPassword">Confirmez votre nouveau mot de passe</label>
+                    <input name= "confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Votre nouveau mot de passe">
+                </div>
+                <button type="submit" value="submit" name="submit" class="btn btn-primary mt-4">Modifier</button>
+                </form>
+        </section>
+        <section class="border p-3 mt-5 mb-5">
+            <h3>Mes derniers commentaires</h2>
+            <div>
+                {% if comments is not empty %}
+                    {% for comment in comments %}
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ comment.title }}<a href="/news/post/{{comment.slug}}" class="btn btn-primary button-comments" target="_blank">Voir l'article</a></h5>
+                            Vous : {{ comment.commentContent}}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucun commentaire pour le moment, ajoutez-en un !</p>    
+                {% endif %}
+            </div>
+        </section>
+    </div>
+{% endblock %}

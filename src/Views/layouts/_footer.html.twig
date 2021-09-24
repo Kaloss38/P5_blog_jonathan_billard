@@ -8,14 +8,17 @@
             <span class="footer-title">Mon Blog</span>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Administration</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#">Accueil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Actualité & Articles</a>
           </li>
+          {% set user = session('user') %}
+          {% if user.isAdmin %}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/articles/1">Administration</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
       <div class="col-md-4 footer-column">

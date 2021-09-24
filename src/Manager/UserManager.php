@@ -11,7 +11,7 @@ use App\Manager\BaseManager;
 		private const USERENTITY = "App\Entity\User";
 		private const EMAILPARAM = ":email";
 		private const TOKENPARAM = ":token";
-
+		private const PSEUDOPARAM = ':pseudo';
 		public function __construct()
 		{
 			parent::__construct("user", self::USERENTITY);	
@@ -77,12 +77,26 @@ use App\Manager\BaseManager;
 			SELECT * FROM user WHERE pseudo = :pseudo";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':pseudo', $user->getPseudo());
+			$req->bindValue(self::PSEUDOPARAM, $user->getPseudo());
 
 			$req->execute();
 			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::USERENTITY);
 
-			return $req->fetchAll();
+			return $req->fetch();
+		}
+
+		public function searchUserByPseudo(string $pseudo)
+		{
+			$sql = "
+			SELECT * FROM user WHERE pseudo = :pseudo";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->bindValue(self::PSEUDOPARAM, $pseudo);
+
+			$req->execute();
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::USERENTITY);
+
+			return $req->fetch();
 		}
 
 		public function createUser(User $user, string $token)
@@ -91,7 +105,7 @@ use App\Manager\BaseManager;
 			INSERT INTO user(pseudo, firstname, lastname, email, isActive, isAdmin, password, token) VALUES(:pseudo, :firstname, :lastname, :email, :isActive, :isAdmin, :password, :token)";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':pseudo', $user->getPseudo());
+			$req->bindValue(self::PSEUDOPARAM, $user->getPseudo());
 			$req->bindValue(':firstname', $user->getFirstname());
 			$req->bindValue(':lastname', $user->getLastname());
 			$req->bindValue(self::EMAILPARAM, $user->getEmail());
@@ -126,5 +140,27 @@ use App\Manager\BaseManager;
 			$req->bindValue(self::TOKENPARAM, $token);
 
 			$req->execute();		
+		}
+
+		public function updatePseudo(string $pseudo, string $newPseudo)
+		{
+			$sql = "
+			UPDATE user SET pseudo = :newPseudo WHERE pseudo = :pseudo";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->bindValue(':newPseudo', $newPseudo);
+			$req->bindValue(':pseudo', $pseudo);
+			$req->execute();	
+		}
+
+		public function UserUpdatePassword(string $newPassword, string $pseudo )
+		{
+			$sql = "
+			UPDATE user SET password = :newPassword WHERE pseudo = :pseudo";
+			$req = $this->_bdd->prepare($sql);
+
+			$req->bindValue(':newPassword', password_hash($newPassword, PASSWORD_BCRYPT));
+			$req->bindValue(self::PSEUDOPARAM, $pseudo);
+			$req->execute();	
 		}
 	}

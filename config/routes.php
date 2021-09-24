@@ -2,6 +2,7 @@
 
 
 use Core\Router;
+use Pecee\Http\Request;
  
 Router::setDefaultNamespace('App\Controller');
 
@@ -66,6 +67,23 @@ Router::all('/reset-password/{token}', 'UserController@resetPassword');
 //Logout
 Router::all('/logout', 'UserController@logout');
 
+//------ USER ------//
+Router::get('/user/{pseudo}', 'UserController@viewProfil');
+Router::all('/user/{pseudo}/updatePseudo', 'UserController@updatePseudo');
+Router::all('/user/{pseudo}/updatePassword', 'UserController@updatePassword');
 
+//------ ERRORS ------//
+Router::get('/not-found', 'ErrorController@notFound');
+Router::get('/forbidden', 'ErrorController@notFound');
 
+Router::error(function(Request $request,\Exception $exception) {
+    $codeException = $exception->getCode();
+    if($codeException === 404 ) {
+        response()->redirect('/not-found');
+    }
+    elseif($codeException === 403){
+        response()->redirect('/forbidden');
+    }
+    
+});
 
