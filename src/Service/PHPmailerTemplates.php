@@ -30,4 +30,21 @@ class PHPmailerTemplates{
             <a href="'.self::DOMAIN.'reset-password/'.$token.'" target="_blank"> Réinitialiser votre mot de passe</a>'
         ];
     }
+
+    public static function sendMessageTemplate(string $name, string $email , string $message)
+    {
+        return [
+            "subject" => "Nouveau message de ".$name,
+            "body" => 'Bonjour, vous avez un nouveau message de '.$name.'.
+            <br>
+            <br>
+            Message:
+            <br>
+            '.$message.'
+            <br>
+            <br>
+            <br>
+            Pour répondre à ce message -------> '.$email
+        ];
+    }
 }

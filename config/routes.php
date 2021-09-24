@@ -9,7 +9,7 @@ Router::setDefaultNamespace('App\Controller');
 //------ HOME -----//
 
 Router::get('/', 'HomeController@home')->setName('home');
-
+Router::post('/send-message', 'HomeController@sendMessage');
 //------ ADMIN ------//
 
 //home - all posts
@@ -73,8 +73,11 @@ Router::all('/user/{pseudo}/updatePseudo', 'UserController@updatePseudo');
 Router::all('/user/{pseudo}/updatePassword', 'UserController@updatePassword');
 
 //------ ERRORS ------//
-Router::get('/not-found', 'ErrorController@notFound');
-Router::get('/forbidden', 'ErrorController@notFound');
+$controllerNotFound = 'ErrorController@notFound';
+
+Router::get('/not-found', $controllerNotFound);
+Router::get('/forbidden', $controllerNotFound);
+
 
 Router::error(function(Request $request,\Exception $exception) {
     $codeException = $exception->getCode();
@@ -83,6 +86,9 @@ Router::error(function(Request $request,\Exception $exception) {
     }
     elseif($codeException === 403){
         response()->redirect('/forbidden');
+    }
+    else{
+        $request->setRewriteCallback('ErrorController@notFound');
     }
     
 });
