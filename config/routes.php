@@ -10,14 +10,15 @@ Router::setDefaultNamespace('App\Controller');
 
 Router::get('/', 'HomeController@home')->setName('home');
 Router::post('/send-message', 'HomeController@sendMessage');
+
 //------ ADMIN ------//
 
 //home - all posts
 Router::get('/admin/articles/{currentPage}', 'AdminController@index')->setName('adminAllPosts');
-//add post view
-Router::get('/admin/add-article', 'AdminController@addPost')->setName('adminAddPost');
-//save post view
-Router::post('/admin/articles-save', 'AdminController@savePost')->setName('adminSavePost');
+
+//add post view + save
+Router::all('/admin/add-article', 'AdminController@addPost');
+
 //update post
 Router::all('/admin/articles/edit/{slug}', 'AdminController@editPost');
 //delete post

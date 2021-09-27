@@ -6,6 +6,7 @@ use Core\Entity;
 class Post extends Entity {
 
     private int $id;
+    private string $author;
     private string $title;
     private string $header;
     private string $content;
@@ -30,6 +31,22 @@ class Post extends Entity {
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /*
+    *
+    * AUTHOR
+    *
+    */
+
+    public function getAuthor(): string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): void
+    {
+        $this->author = $author;
     }
 
     /*

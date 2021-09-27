@@ -25,42 +25,38 @@ class AdminController extends Controller{
         ]);
     }
 
-    public function addPost()
-    {
+    public function addPost(){
         $this->roles()->isAdmin();
-
-        return $this->render('/admin/addPost');
-    }
-
-    public function savePost(){
-        $this->roles()->isAdmin();
-
-        //set image to save in local
-        $file = $_FILES['thumbnail'];
-
-        $currentTimeFormat = $this->getCurrentTime()->format('Y-m-d_H:i:s');
-
-        $this->savePicture($file, $currentTimeFormat);
-        $pictureLink = $this->searchPicture($currentTimeFormat);       
-
-        //new instance POST
-        $newPost = new Post($_POST);
-
+        
         //check form for issubmit
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $this->csrf();
-            $postManager = new PostManager();
-            $userId = $this->session()->get('user')['id'];
 
+            //set image to save in local
+            $file = $_FILES['thumbnail'];
+
+            $currentTimeFormat = $this->getCurrentTime()->format('Y-m-d_H:i:s');
+
+            $this->savePicture($file, $currentTimeFormat);
+            $pictureLink = $this->searchPicture($currentTimeFormat);       
+
+            //new instance POST
+            $newPost = new Post($_POST);
+            
             $userManager = new UserManager();
+            $userId = $this->session()->get('user')['id'];
             $author = $userManager->getById($userId);
             $slug = $this->slugify($newPost->getTitle());
+            
+            $postManager = new PostManager();
             $postManager->createPost($newPost, $pictureLink, $author, $slug);
 
             $this->flash()->success("L'article a bien été créé");
 
             $this->redirectTo(self::HOMEADMINURL);
         }
+
+        return $this->render('/admin/addPost');
     }
 
     public function deletePost($slug)
