@@ -2,16 +2,38 @@
 // No media query for `xs` since this is the default in Bootstrap
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {}
+@media (min-width: 300px) {
+    .card-img-top {
+        height: 54vw;
+    }
+
+    .button-comments{
+        margin-left: 0 !important;
+    }
+    
+}
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+    .card-img-top {
+        height: 15vw;
+    }
+    
+}
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+    .card-img-top {
+        height: 15vw;
+    }
+}
 
 // X-Large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+    .card-img-top {
+        height: 15vw;
+    }
+}
 
 // XX-Large devices (larger desktops, 1400px and up)
 @media (min-width: 1400px) {}

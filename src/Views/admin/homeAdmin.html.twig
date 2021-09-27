@@ -2,13 +2,14 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-          <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div class="align-items-center col-12 pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Liste des articles</h1>
             {% if flash('success') %}
               <div class="alert alert-success" role="alert">
                 {{ flash('success') }}
               </div>
             {% endif %}
+            <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
@@ -63,6 +64,7 @@
                 {% endif %}
               </tbody>
             </table>
+            </div>
           </div>
           <nav aria-label="Page navigation example" class="mt-4 mb-5">
             <ul class="pagination justify-content-center">

@@ -121,4 +121,40 @@ footer .quick-links {
   object-fit: cover;
 }
 
+@media (min-width: 300px) {
+  .card-img-top {
+    height: 54vw;
+  }
+
+  .button-comments {
+    margin-left: 0 !important;
+  }
+}
+@media (min-width: 768px) {
+  .card-img-top {
+    height: 15vw;
+  }
+}
+@media (min-width: 992px) {
+  .card-img-top {
+    height: 15vw;
+  }
+}
+@media (min-width: 1200px) {
+  .card-img-top {
+    height: 15vw;
+  }
+}
+.form-auth {
+  min-height: 26em;
+}
+
+#panel-admin {
+  min-height: 26em;
+}
+
+.button-comments {
+  margin-left: 2em !important;
+}
+
 /*# sourceMappingURL=style.css.map */

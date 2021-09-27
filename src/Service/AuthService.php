@@ -62,6 +62,13 @@ class AuthService extends Controller{
         }
         
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
+            
+            if(!isset($_POST['legalMentions']))
+            {
+                $this->flash()->error("Vous n'avez pas accepté les mentions légales");
+                $this->redirectTo('/subscribe');
+            }
+
             $newUser = new User($_POST);
             $userManager = new UserManager();
             $userCountMail = $userManager->getUsersFromEmail($newUser);

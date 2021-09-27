@@ -13,12 +13,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/news/1">Actualité & Articles</a>
           </li>
-          {% set user = session('user') %}
-          {% if user.isAdmin %}
           <li class="nav-item">
             <a class="nav-link" href="/admin/articles/1">Administration</a>
           </li>
-          {% endif %}
         </ul>
       </div>
       <div class="col-md-4 footer-column">
@@ -73,10 +70,7 @@
       <div class="col-md-4 box">
         <ul class="list-inline quick-links">
           <li class="list-inline-item">
-            <a href="#">Privacy Policy</a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">Terms of Use</a>
+            <a href="/mentions-legales">Mentions Légales</a>
           </li>
         </ul>
       </div>

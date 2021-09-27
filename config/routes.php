@@ -11,6 +11,9 @@ Router::setDefaultNamespace('App\Controller');
 Router::get('/', 'HomeController@home')->setName('home');
 Router::post('/send-message', 'HomeController@sendMessage');
 
+//----- Mentions Legales -----//
+Router::get('/mentions-legales', 'HomeController@mentionsLegales');
+
 //------ ADMIN ------//
 
 //home - all posts

@@ -12,7 +12,7 @@ use App\Service\PHPmailerTemplates;
 
 class UserService extends Controller{
 
-    private const LOGINURL = "/login";
+    private const USERURL = '/user/';
 
     public function updatePseudo($pseudo)
     {
@@ -59,7 +59,7 @@ class UserService extends Controller{
                 $this->flash()->error("Ce pseudo est déjà utilisé");
             }
 
-            $this->redirectTo('/user/'. $pseudo);
+            $this->redirectTo(self::USERURL. $pseudo);
         }
     }
 
@@ -85,7 +85,7 @@ class UserService extends Controller{
                 $this->flash()->error("Mot de passe incorrect");
             }
 
-            $this->redirectTo('/user/'. $pseudo);
+            $this->redirectTo(self::USERURL. $pseudo);
         }
     }
 
@@ -95,7 +95,7 @@ class UserService extends Controller{
 
         if($userSession['pseudo'] != $pseudo)
         {
-            $this->redirectTo('/user/'.$userSession['pseudo']);
+            $this->redirectTo(self::USERURL.$userSession['pseudo']);
         }
 
     }

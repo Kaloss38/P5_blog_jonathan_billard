@@ -16,6 +16,12 @@ class HomeController extends Controller{
     {
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             
+            if(!$_POST['legalMentions'])
+            {
+                $this->flash()->error("Vous n'avez pas accepté les mentions légales");
+                $this->redirectTo('/');
+            }
+
             $template = PHPmailerTemplates::sendMessageTemplate($_POST['name'], $_POST['email'], $_POST['message']);
             $this->mail()->sendMessage($template);
 
@@ -28,4 +34,10 @@ class HomeController extends Controller{
             $this->redirectTo('/');
         }
     }
+
+    public function mentionsLegales()
+    {
+        return $this->render('public/mentions-legales', []);
+    }
+
 }

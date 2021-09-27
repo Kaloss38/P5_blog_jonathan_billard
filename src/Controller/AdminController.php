@@ -15,6 +15,8 @@ class AdminController extends Controller{
 
     public function index($currentPage)
     {
+        $this->roles()->isAdmin();
+        
         $paginate = new Pagination();
         $posts = $paginate->paginatePosts($currentPage, 5);
 

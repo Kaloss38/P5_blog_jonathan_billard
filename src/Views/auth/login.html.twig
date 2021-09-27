@@ -2,51 +2,45 @@
 {% block title %} Connexion {% endblock %}
 
 {% block body %}
-    <div class="container">
-  <div class="row">
-    <h1 class="text-center">Connexion</h1>
-    {% if flash('success') %}
-        <div class="alert alert-success" role="alert">
-            {{ flash('success') }}
-        </div>
-    {% elseif flash('error') %}
-        <div class="alert alert-danger" role="alert">
-            {{ flash('error') }}
-        </div>    
-    {% endif %}
-      <form class="form-group col-6" form method="POST" action="/login" enctype="multipart/form-data" role="form">
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-3 control-label">
-            Votre adresse e-mail</label>
-          <div class="col-sm-9">
-            <input type="email" name="email" class="form-control" id="inputUser" placeholder="UserName" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputPassword3" class="col-sm-3 control-label">
-            Votre mot de passe</label>
-          <div class="col-sm-9">
-            <input type="password" name="password" class="form-control" id="inputPsw" placeholder="Password" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-9">
-            <div class="checkbox">
-              <label>
-                <input name="rememberMe" type="checkbox" /> Se souvenir de moi
-              </label>
+    <div class="container form-auth">
+      <div class="row">
+        <h1 class="text-center mt-4 display-4">Connexion</h1>
+        {% if flash('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ flash('success') }}
             </div>
-          </div>
+        {% elseif flash('error') %}
+            <div class="alert alert-danger" role="alert">
+                {{ flash('error') }}
+            </div>    
+        {% endif %}
+        <div class="d-md-flex d-lg-flex justify-content-center">
+          <form class="col-sm-12 col-md-8 col-lg-6 mt-5 mb-5 p-4 shadow border" form method="POST" action="/login" enctype="multipart/form-data" role="form">
+            <div class="form-group">
+              <label for="inputEmail3" class="control-label">
+                Votre adresse e-mail</label>
+                <input type="email" name="email" class="form-control mt-2" id="inputUser" placeholder="UserName" required>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="control-label mt-2">
+                Votre mot de passe</label>
+                <input type="password" name="password" class="form-control mt-2" id="inputPsw" placeholder="Password" required>
+            </div>
+            <div class="form-group text-center mt-2">
+                <div class="checkbox">
+                  <label>
+                    <input name="rememberMe" type="checkbox" /> Se souvenir de moi
+                  </label>
+                </div>
+            </div>
+            <div class="form-group text-center mt-2">
+                <button name="submit" value="submit" type="submit" class="btn btn-primary btn-sm">
+                  Se connecter</button>
+                <button type="reset" class="btn btn-default btn-sm">
+                  <a href="/forget-password">Mot de passe oublié</a></button>
+            </div>
+          </form>
         </div>
-        <div class="form-group last">
-          <div class="col-sm-offset-3 col-sm-9">
-            <button name="submit" value="submit" type="submit" class="btn btn-success btn-sm">
-              Sign in</button>
-            <button type="reset" class="btn btn-default btn-sm">
-              <a href="/forget-password">Mot de passe oublié</a></button>
-          </div>
-        </div>
-      </form>
+      </div>
   </div>
-</div>
 {% endblock %}

@@ -2,9 +2,9 @@
 {% block title %} Inscription {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container form-auth">
   <div class="row">
-    <h1 class="text-center">Inscription</h1>
+    <h1 class="text-center mt-4 display-4">Inscription</h1>
     {% if flash('success') %}
         <div class="alert alert-success" role="alert">
             {{ flash('success') }}
@@ -14,58 +14,49 @@
             {{ flash('error') }}
         </div>    
     {% endif %}
-    <div class="login-wrap">
-      <form class="form-horizontal" form method="POST" action="/subscribe" enctype="multipart/form-data" role="form">
+    <div class="d-md-flex d-lg-flex justify-content-center">
+      <form class="col-sm-12 col-md-8 col-lg-6 mt-5 mb-5 p-4 shadow border" form method="POST" action="/subscribe" enctype="multipart/form-data" role="form">
         <div class="form-group">
-          <label for="inputEmail3" class="col-sm-3 control-label">
+          <label for="inputEmail3" class="control-label">
             Votre E-mail*</label>
-          <div class="col-sm-9">
-            <input name="email" type="email" class="form-control" id="inputUser" placeholder="E-mail" required>
-          </div>
+            <input name="email" type="email" class="form-control mt-2" id="inputUser" placeholder="Entrez votre e-mail" required>
         </div>
         <div class="form-group">
-          <label for="inputEmail3" class="col-sm-3 control-label">
+          <label for="inputEmail3" class="control-label mt-2">
             Votre pseudo*</label>
-          <div class="col-sm-9">
-            <input name="pseudo" type="text" class="form-control" id="inputUser" placeholder="Pseudo" required>
-          </div>
+            <input name="pseudo" type="text" class="form-control mt-2" id="inputUser" placeholder="Entrez votre pseudo" required>
         </div>
         <div class="form-group">
-          <label for="inputEmail3" class="col-sm-3 control-label">
+          <label for="inputEmail3" class="control-label mt-2">
             Votre nom*</label>
-          <div class="col-sm-9">
-            <input name="firstname" type="text" class="form-control" id="inputUser" placeholder="Pseudo" required>
-          </div>
+            <input name="firstname" type="text" class="form-control mt-2" id="inputUser" placeholder="Entrez votre nom" required>
         </div>
         <div class="form-group">
-          <label for="inputEmail3" class="col-sm-3 control-label">
+          <label for="inputEmail3" class="control-label mt-2">
             Votre prénom*</label>
-          <div class="col-sm-9">
-            <input name="lastname" type="text" class="form-control" id="inputUser" placeholder="Pseudo" required>
-          </div>
+            <input name="lastname" type="text" class="form-control mt-2" id="inputUser" placeholder="Entrez votre prénom" required>
         </div>
         <div class="form-group">
-          <label for="inputEmail3" class="col-sm-3 control-label">
+          <label for="inputEmail3" class="control-label mt-2">
             Entrez un mot de passe*</label>
-          <div class="col-sm-9">
-            <input name="password" type="password" class="form-control" id="inputUser" placeholder="Mot de passe" required>
-          </div>
+            <input name="password" type="password" class="form-control mt-2" id="inputUser" placeholder="Entrez votre mot de passe" required>
         </div>
         <div class="form-group">
-          <label for="inputPassword3" class="col-sm-3 control-label">
+          <label for="inputPassword3" class="control-label mt-2">
             Confirmez votre mot de passe*</label>
-          <div class="col-sm-9">
-            <input name="confirmPassword" type="password" class="form-control" id="inputPsw" placeholder="Mot de passe" required>
-          </div>
+            <input name="confirmPassword" type="password" class="form-control mt-2" id="inputPsw" placeholder="Entrez à nouveau votre mot de passe" required>
         </div>
-        <div class="form-group last">
-          <div class="col-sm-offset-3 col-sm-9">
-            <button type="submit" value="submit" name="submit" class="btn btn-success btn-sm">
+        <div class="form-group text-center mt-3">
+          <input type="checkbox" name="legalMentions"> J'ai lu et j'accepte les <a href="/mentions-legales" target="_blank">mentions légales</a>
+        </div>
+        <div class="form-group">
+          <div class="text-center mt-4">
+            <button type="submit" value="submit" name="submit" class="btn btn-primary">
               Inscription</button>
           </div>
         </div>
       </form>
-    </div>
+      </div>
   </div>
 </div>
 {% endblock %}
