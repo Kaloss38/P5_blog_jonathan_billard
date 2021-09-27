@@ -8,6 +8,10 @@ Here my first blog project with PHP MVC, let's clone to start it !
 
 First, install all composer packages with command line : ``composer install``
 
+### import database
+
+For have all posts and users, in your PhpMyAdmin, import p5blog.sql in database folder from root directory
+
 ### config.json settings
 
 Then, we need to set configuration file to start project correctly
