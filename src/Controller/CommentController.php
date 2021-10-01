@@ -10,7 +10,7 @@ use App\Entity\Comment;
 class CommentController extends Controller{
 
     public function addComment($slug){
-        //Récupérer utilisateur en session une fois que le système d'authentification sera fait
+        $this->roles()->isAuth();
         $postManager = new PostManager();
         $post = $postManager->getBySlug($slug);
 

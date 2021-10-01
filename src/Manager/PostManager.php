@@ -4,6 +4,7 @@
 
     use App\Manager\BaseManager;
 	use App\Entity\Post;
+	use App\Entity\User;
 
 	class PostManager extends BaseManager
 	{
@@ -26,12 +27,12 @@
 		
 		}
 
-		public function createPost(Post $post, string $pictureLink, int $userId, string $slug){
+		public function createPost(Post $post, string $pictureLink, User $user, string $slug){
 			$sql = "
-			INSERT INTO post(userId, title, header, content, creationDate, thumbnail, slug) VALUES(:userId, :title, :header, :content, :creationDate, :thumbnail, :slug)";
+			INSERT INTO post(author, title, header, content, creationDate, thumbnail, slug) VALUES(:author, :title, :header, :content, :creationDate, :thumbnail, :slug)";
 			$req = $this->_bdd->prepare($sql);
 
-			$req->bindValue(':userId', $userId);
+			$req->bindValue(':author', $user->getPseudo());
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
@@ -42,15 +43,15 @@
 			$req->execute();
 		}
 
-		public function updatePost(Post $post, string $img)
+		public function updatePost(Post $post, User $user, string $img)
 		{
 			$sql = "
-			UPDATE post SET userId = :userId, title = :title, header = :header, content = :content, creationDate=:creationDate, modificationDate = :modificationDate, thumbnail = :thumbnail, slug = :slug WHERE id = :id";
+			UPDATE post SET author = :author, title = :title, header = :header, content = :content, creationDate=:creationDate, modificationDate = :modificationDate, thumbnail = :thumbnail, slug = :slug WHERE id = :id";
 			$req = $this->_bdd->prepare($sql);
 
 			$modificationDateUpdate = new \DateTime("now");
 
-			$req->bindValue(':userId', 1);
+			$req->bindValue(':author', $user->getPseudo());
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());

@@ -6,6 +6,7 @@ use Core\Controller;
 use App\Manager\PostManager;
 use App\Entity\Post;
 use App\Manager\CommentManager;
+use App\Manager\UserManager;
 use App\Service\Pagination;
 
 class AdminController extends Controller{
@@ -14,6 +15,8 @@ class AdminController extends Controller{
 
     public function index($currentPage)
     {
+        $this->roles()->isAdmin();
+        
         $paginate = new Pagination();
         $posts = $paginate->paginatePosts($currentPage, 5);
 
@@ -24,39 +27,38 @@ class AdminController extends Controller{
         ]);
     }
 
-    public function addPost()
-    {
+    public function addPost(){
         $this->roles()->isAdmin();
-
-        return $this->render('/admin/addPost');
-    }
-
-    public function savePost(){
-        $this->roles()->isAdmin();
-
-        //set image to save in local
-        $file = $_FILES['thumbnail'];
-
-        $currentTimeFormat = $this->getCurrentTime()->format('Y-m-d_H:i:s');
-
-        $this->savePicture($file, $currentTimeFormat);
-        $pictureLink = $this->searchPicture($currentTimeFormat);       
-
-        //new instance POST
-        $newPost = new Post($_POST);
-
+        
         //check form for issubmit
         if( $this->isSubmit('submit') && $this->isValidated($_POST)){
             $this->csrf();
-            $postManager = new PostManager();
+
+            //set image to save in local
+            $file = $_FILES['thumbnail'];
+
+            $currentTimeFormat = $this->getCurrentTime()->format('Y-m-d_H:i:s');
+
+            $this->savePicture($file, $currentTimeFormat);
+            $pictureLink = $this->searchPicture($currentTimeFormat);       
+
+            //new instance POST
+            $newPost = new Post($_POST);
+            
+            $userManager = new UserManager();
             $userId = $this->session()->get('user')['id'];
+            $author = $userManager->getById($userId);
             $slug = $this->slugify($newPost->getTitle());
-            $postManager->createPost($newPost, $pictureLink, $userId, $slug);
+            
+            $postManager = new PostManager();
+            $postManager->createPost($newPost, $pictureLink, $author, $slug);
 
             $this->flash()->success("L'article a bien été créé");
 
             $this->redirectTo(self::HOMEADMINURL);
         }
+
+        return $this->render('/admin/addPost');
     }
 
     public function deletePost($slug)
@@ -104,11 +106,16 @@ class AdminController extends Controller{
         $this->roles()->isAdmin();
 
         $file = $_FILES['thumbnail']['size'];
+
+        $userId = $this->session()->get('user')['id'];
+
+        $userManager = new UserManager();
+        $author = $userManager->getById($userId);
         
         if($file == 0)
         {
             $postManager = new PostManager();
-            $postManager->updatePost($post, $post->getThumbnail());
+            $postManager->updatePost($post, $author, $post->getThumbnail());
             
         }
         else 
@@ -119,8 +126,9 @@ class AdminController extends Controller{
             $this->savePicture($newfile, $currentTimeFormat);
             $pictureLink = $this->searchPicture($currentTimeFormat);
             
+            
             $postManager = new PostManager();
-            $postManager->updatePost($post, $pictureLink);  
+            $postManager->updatePost($post, $author, $pictureLink);  
         }
     }
 

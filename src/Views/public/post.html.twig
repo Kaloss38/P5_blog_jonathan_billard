@@ -2,28 +2,32 @@
 {% block title %} {{ post.title }} {% endblock %}
 
 {% block body %}
-    <div class="text-center mt-4">
-        <img class="col-3 img-thumbnail text-center" src="../../../{{ post.thumbnail }}" />
-    </div>
+    <img class="col-12 image-thumbnail text-center" src="../../../{{ post.thumbnail }}" />
+    
     <div class="container mt-4">
-        <h1 class="text-center">{{ post.title }}</h1>
-        <p class="text-center">{{ post.header }}</p>
-        <p class="text-center mt-4 mb-4">{{ post.content|raw }}</p>
+        <h1 class="text-center display-1">{{ post.title }}</h1>
+        <h2 class="text-center">{{ post.header }}</h2>
+        <p class="text-center lead">créé par {{ post.author }} le {{ post.creationDate|date('d/m/Y', 'Europe/Paris') }} à {{ post.creationDate|date('H:i', 'Europe/Paris') }} </p>
+        {% if post.modificationDate %}
+        <p class="text-center lead">modifié le {{ post.modificationDate|date('d/m/Y', 'Europe/Paris') }} à {{ post.modificationDate|date('H:i', 'Europe/Paris') }} </p>    
+        {% endif %}
+        
+        <p class="text-center mt-5">{{ post.content|raw }}</p>
     </div>
-    <hr class="mt-2 mb-3"/>
-    <div class="container mt-4">
-        <h2 class="text-center">Commentaires</h2>
+    <div class="container border-top mt-5">
+        <h2 class="text-center mt-4">Commentaires</h2>
     </div>
     {% set user = session('user') %}
     {% if user %}
         <div class="container mt-4">
             <form method="POST" action="/news/post/{{post.slug}}/ajout-commentaire" enctype="multipart/form-data">
                 <div class="form-group py-2">
-                    <label for="content">{{ user.pseudo }}</label>
+                    <label for="content" class="mb-1"><b>{{ user.pseudo }}</b>  (vous)</label>
                     <input name="content" type="textarea" class="form-control" id="content" placeholder="Votre commentaire...">
                     <input name="csrf" type="hidden" value="{{ user.token }}">
                 </div>
-                <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2">Envoyer</button>
+                    <button type="submit" value="submit" name="submit" class="btn btn-primary mt-2" style="float:right">Envoyer</button>
+                
             </form>
         </div>
     {% else %}

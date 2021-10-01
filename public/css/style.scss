@@ -1,4 +1,19 @@
 @import './main.scss';
 @import './layouts/_footer.scss';
 @import './pages/home.scss';
+@import './pages/actualities.scss';
+@import './pages/post.scss';
 
+@import './pages/media-queries.scss';
+
+.form-auth{
+    min-height:26em;
+}
+
+#panel-admin{
+    min-height:26em;    
+}
+
+.button-comments{
+    margin-left: 2em !important;
+}
