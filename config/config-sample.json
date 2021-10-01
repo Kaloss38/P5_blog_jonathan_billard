@@ -1,0 +1,22 @@
+{
+	"database":  {
+        "name": "p5blog", 
+        "dbname": "p5blog",
+        "host": "localhost",
+        "user": "// HERE YOUR USERNAME //",
+        "password": "// HERE YOUR PASSWORD IF NOTHING DONT FILL //"
+    },
+    "phpmailer": {
+        "host": "// HERE YOUR MAIL HOST IF GMAIL => smtp.gmail.com //",
+        "username": "// YOUR USERNAME IS YOUR HOST MAIL ADDRESS //",
+        "password": "// HERE THE PASSWORD OF YOUR MAIL ADDRESS //",
+        "fromMail": "// HERE THE MAIL WHO WANT TO BE SEE AT RECEPTION //",
+        "fromName": "// HERE THE NAME WHO WANT TO BE SEE AT RECEPTION //",
+        "smtpSecure": "ssl",
+        "port": 465
+    },
+    "security": {
+        "saltStart": "38efd",
+        "saltEnd" : "74vkcb"
+    }
+}

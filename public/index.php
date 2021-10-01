@@ -21,5 +21,3 @@ $cookieAuth->AuthWithCookie();
 
 // Start the routing
 Router::start();
-
-//VIEW_DIR . "home.view.php";

@@ -52,7 +52,7 @@
                       <td>{{ post.title }}</td>
                       <td>{{ post.creationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
                       <td>{{ post.modificationDate is null ? '' : post.modificationDate|date('d/m/Y H:i', 'Europe/Paris') }}</td>
-                      <td>Admin</td>
+                      <td>{{ post.author }}</td>
                       <td>
                         <a href="/admin/articles/edit/{{ post.slug }}" class="btn btn-warning">Editer</a>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalForDelete">Supprimer</button>
