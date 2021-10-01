@@ -4,9 +4,14 @@ Here my first blog project with PHP MVC, let's clone to start it !
 
 ## Starting project
 
+### requirements
+
+- PHP 7.4+
+- MySQL 5.4+
+
 ### Packages Installation
 
-First, install all composer packages with command line : ``composer install``
+First, clone project then install all composer packages with command line : ``composer install``
 
 ### import database
 
