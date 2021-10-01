@@ -40,6 +40,10 @@ _your config.json, database and phpmailer examples_:
             }
 ```
 
+### Access to admin dashboard
+
+For access to admin dashboard, you need to switch "isAdmin" to 1 in user table from database on user account wich you want to be admin.
+
 ## Libraries use list
 
 - [Pecee Simple Router](https://packagist.org/packages/pecee/simple-router)
