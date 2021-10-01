@@ -59,3 +59,5 @@ For access to admin dashboard, you need to switch "isAdmin" to 1 in user table f
 
 
 [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=com.lapots.breed.judge:judge-rule-engine&metric=alert_status)](https://sonarcloud.io/dashboard?id=Kaloss38_P5_blog_jonathan_billard)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.lapots.breed.judge:judge-rule-engine&metric=alert_status)](https://sonarcloud.io/dashboard?id=Kaloss38_P5_blog_jonathan_billard)
