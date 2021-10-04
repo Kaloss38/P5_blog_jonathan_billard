@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 27 sep. 2021 à 14:03
+-- Généré le : lun. 04 oct. 2021 à 12:50
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -33,40 +33,43 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `content` varchar(500) CHARACTER SET utf8 NOT NULL,
-  `creationDate` date NOT NULL,
+  `creationDate` datetime NOT NULL,
   `isValidated` tinyint(4) NOT NULL,
   `isWaiting` tinyint(4) NOT NULL,
   `isDisapproved` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `post_id` (`postId`,`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `comment`
 --
 
 INSERT INTO `comment` (`id`, `postId`, `userId`, `content`, `creationDate`, `isValidated`, `isWaiting`, `isDisapproved`) VALUES
-(1, 29, 1, 'Bonjour, c\'est un commentaire', '2021-07-07', 0, 0, 0),
-(2, 29, 1, 'Les commentaires sont up', '2021-07-07', 1, 0, 0),
-(3, 26, 1, 'Essai d\'envoi commentaire depuis un autre article', '2021-07-07', 0, 0, 0),
-(4, 29, 1, 'Nouveau commentaire', '2021-07-09', 1, 0, 0),
-(5, 26, 1, 'Dans ce commentaire, je dis des choses mÃ©chantes qu\'il faut dÃ©sapprouver', '2021-07-09', 1, 0, 0),
-(6, 29, 1, 'Bonjour', '2021-07-09', 1, 0, 0),
-(7, 29, 1, 'Un test pour les commentaires', '2021-07-09', 1, 0, 0),
-(8, 29, 1, 'Un autre test pour les commentaires', '2021-07-09', 0, 0, 1),
-(12, 27, 1, 'Bonjour, new comment', '2021-07-09', 1, 0, 0),
-(10, 29, 1, 'Un quelconque commentaire', '2021-07-09', 1, 0, 0),
-(11, 25, 1, 'Test', '2021-07-09', 1, 0, 1),
-(13, 26, 1, 'J\'adore Berserk !', '2021-08-09', 0, 1, 0),
-(14, 26, 1, 'Moi aussi :)', '2021-08-09', 0, 1, 0),
-(15, 26, 1, 'test', '2021-08-12', 0, 1, 0),
-(16, 25, 28, 'C\'est super ! ', '2021-09-03', 1, 0, 0),
-(17, 36, 28, 'Genial !', '2021-09-17', 1, 0, 0),
-(18, 36, 28, 'J\'adore vraiment', '2021-09-17', 0, 1, 0),
-(19, 36, 28, 'yes', '2021-09-17', 0, 1, 0),
-(20, 36, 28, 'Merci bcp', '2021-09-17', 0, 1, 0),
-(21, 36, 28, 'yes', '2021-09-17', 0, 1, 0),
-(22, 43, 28, 'J\'attend toujours la mienne ! :@', '2021-09-22', 1, 0, 0);
+(1, 29, 1, 'Bonjour, c\'est un commentaire', '2021-07-07 00:00:00', 0, 0, 0),
+(2, 29, 1, 'Les commentaires sont up', '2021-07-07 00:00:00', 1, 0, 0),
+(3, 26, 1, 'Essai d\'envoi commentaire depuis un autre article', '2021-07-07 00:00:00', 0, 0, 0),
+(4, 29, 1, 'Nouveau commentaire', '2021-07-09 00:00:00', 1, 0, 0),
+(5, 26, 1, 'Dans ce commentaire, je dis des choses mÃ©chantes qu\'il faut dÃ©sapprouver', '2021-07-09 00:00:00', 1, 0, 0),
+(6, 29, 1, 'Bonjour', '2021-07-09 00:00:00', 1, 0, 0),
+(7, 29, 1, 'Un test pour les commentaires', '2021-07-09 00:00:00', 1, 0, 0),
+(8, 29, 1, 'Un autre test pour les commentaires', '2021-07-09 00:00:00', 0, 0, 1),
+(12, 27, 1, 'Bonjour, new comment', '2021-07-09 00:00:00', 1, 0, 0),
+(10, 29, 1, 'Un quelconque commentaire', '2021-07-09 00:00:00', 1, 0, 0),
+(11, 25, 1, 'Test', '2021-07-09 00:00:00', 1, 0, 1),
+(13, 26, 1, 'J\'adore Berserk !', '2021-08-09 00:00:00', 0, 1, 0),
+(14, 26, 1, 'Moi aussi :)', '2021-08-09 00:00:00', 0, 1, 0),
+(15, 26, 1, 'test', '2021-08-12 00:00:00', 0, 1, 0),
+(16, 25, 28, 'C\'est super ! ', '2021-09-03 00:00:00', 1, 0, 0),
+(17, 36, 28, 'Genial !', '2021-09-17 00:00:00', 1, 0, 0),
+(18, 36, 28, 'J\'adore vraiment', '2021-09-17 00:00:00', 0, 1, 0),
+(19, 36, 28, 'yes', '2021-09-17 00:00:00', 0, 1, 0),
+(20, 36, 28, 'Merci bcp', '2021-09-17 00:00:00', 0, 1, 0),
+(21, 36, 28, 'yes', '2021-09-17 00:00:00', 0, 1, 0),
+(22, 43, 28, 'J\'attend toujours la mienne ! :@', '2021-09-22 00:00:00', 1, 0, 0),
+(23, 50, 33, 'J\'adore ce film', '2021-10-04 00:00:00', 0, 1, 0),
+(24, 49, 28, 'C\'est un commentaire mÃ©chant !', '2021-10-04 00:00:00', 0, 0, 1),
+(26, 48, 28, 'L\'homme araignÃ©e !', '2021-10-04 12:42:40', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -86,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `thumbnail` varchar(255) CHARACTER SET utf8 NOT NULL,
   `slug` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `post`
@@ -121,15 +124,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   `token` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id`, `pseudo`, `firstname`, `lastname`, `email`, `isActive`, `isAdmin`, `password`, `token`) VALUES
-(28, 'Johnny', 'Jonathan', 'Billard', 'jb.grphdesigner@gmail.com', 1, 1, '$2y$10$9rWbXZlDEnSVXoe9q8TFBOd2plBk9wSRWTs1RbM5vUupEZIO9OM9.', '9ad4f1d9-525d-4224-aeb0-6ae2a3d40cef'),
-(31, 'Raspoutine', 'Jonathan', 'Billard', 'kaloss38@gmail.com', 1, 0, '$2y$10$2X1YSfGQ3/kt9tmH47N5ROdVAeIZI.rarjHpE02rfNN8YQZ7wNcA.', '91b39256-487b-40f4-827f-d20094e44e68');
+(28, 'Johnny', 'Jonathan', 'Billard', 'jb.grphdesigner@gmail.com', 1, 1, '$2y$10$9rWbXZlDEnSVXoe9q8TFBOd2plBk9wSRWTs1RbM5vUupEZIO9OM9.', '9ad4f1d9-525d-4224-aeb0-6ae2a3d40cef');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

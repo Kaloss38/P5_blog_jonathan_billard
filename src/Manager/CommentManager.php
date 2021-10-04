@@ -9,9 +9,12 @@
 
 	class CommentManager extends BaseManager
 	{
+
+		private const ENTITYPARAM = "App\Entity\Comment";
+
 		public function __construct()
 		{
-			parent::__construct("comment", "App\Entity\Comment");	
+			parent::__construct("comment", self::ENTITYPARAM);	
 		}
 
 		public function createComment(Comment $comment, Post $post, int $userId){
@@ -39,7 +42,7 @@
 			$req->bindValue(':id', $post->getId());
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::ENTITYPARAM);
 
 			return $req->fetchAll();
 		}
@@ -51,7 +54,7 @@
 			$req = $this->_bdd->prepare($sql);
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::ENTITYPARAM);
 
 			return $req->fetchAll();
 		}
@@ -63,7 +66,7 @@
 			$req = $this->_bdd->prepare($sql);
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::ENTITYPARAM);
 
 			return $req->fetchAll();
 		}
@@ -75,7 +78,7 @@
 			$req = $this->_bdd->prepare($sql);
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::ENTITYPARAM);
 
 			return $req->fetchAll();
 		}
@@ -89,7 +92,7 @@
 			$req->bindValue(':id', $user->getId());
 
 			$req->execute();
-			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Entity\Comment");
+			$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, self::ENTITYPARAM);
 
 			return $req->fetchAll();
 		}
