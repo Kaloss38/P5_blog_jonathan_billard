@@ -14,6 +14,7 @@
 		}
 
 		private const SLUGPARAM = ":slug";
+		private const FORMATPARAM = 'Y-m-d H:i:s';
 
 		public function getBySlug(string $slug)
 		{
@@ -36,7 +37,7 @@
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
-			$req->bindValue(':creationDate', $post->getCreationDate()->format('Y-m-d H:i:s'));
+			$req->bindValue(':creationDate', $post->getCreationDate()->format(self::FORMATPARAM));
 			$req->bindValue(':thumbnail', $pictureLink);
 			$req->bindValue(self::SLUGPARAM, $slug);
 			
@@ -55,8 +56,8 @@
 			$req->bindValue(':title', $post->getTitle());
 			$req->bindValue(':header', $post->getHeader());
 			$req->bindValue(':content', $post->getContent());
-			$req->bindValue(':creationDate', $post->getCreationDate()->format('Y-m-d H:i:s'));
-			$req->bindValue(':modificationDate', $modificationDateUpdate->format('Y-m-d H:i:s'));
+			$req->bindValue(':creationDate', $post->getCreationDate()->format(self::FORMATPARAM));
+			$req->bindValue(':modificationDate', $modificationDateUpdate->format(self::FORMATPARAM));
 			$req->bindValue(':thumbnail', $img);
 			$req->bindValue(':id', $post->getId());
 			$req->bindValue(self::SLUGPARAM, $post->getSlug());
